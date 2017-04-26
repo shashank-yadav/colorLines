@@ -3,6 +3,110 @@
 colorLines::colorLines(){}
 colorLines::~colorLines(){}
 
+
+cv::Mat low_pass(cv::Mat src)
+{
+	// define the kernel
+	float Kernel[3][3] = {
+						{1/9.0, 1/9.0, 1/9.0},
+						{1/9.0, 1/9.0, 1/9.0},
+						{1/9.0, 1/9.0, 1/9.0}
+					   }; 
+	
+	cv::Mat dst = src.clone();
+	float sum;
+	for(int y = 0; y < src.rows; y++)
+		for(int x = 0; x < src.cols; x++)
+			dst.at<float>(y,x) = 0.0;
+	//convolution operation
+	for(int y = 1; y < src.rows - 1; y++){
+		for(int x = 1; x < src.cols - 1; x++){
+			sum = 0.0;
+			for(int k = -1; k <= 1;k++){
+				for(int j = -1; j <=1; j++){
+					sum = sum + Kernel[j+1][k+1]*src.at<float>(y - j, x - k);
+				}
+			}
+			dst.at<float>(y,x) = sum;
+		}
+	}
+	return dst;
+}
+
+
+std::vector<cv::Point2f> local_maxima(cv::Mat src)
+{
+	const int border = 2;
+	std::vector<cv::Point2f> ret;
+	for(int y = border; y < src.rows - border; y++){
+		for(int x = border; x < src.cols - border; x++){
+			bool maxima = true;
+			for(int k = -1; k <= 1;k++){
+				for(int j = -1; j <=1; j++){
+					if(src.at<float>(y - j, x - k) >= src.at<float>(y, x)){
+						maxima = false;
+						break;
+					}
+				}
+			}
+			if(maxima){
+				ret.push_back(cv::Point2f((float)x,(float)y));
+			}
+		}
+	}
+	return ret;
+}
+
+cv::Mat affiliation(cv::Mat src, std::vector<cv::Point2f> maximas)
+{
+	cv::Mat ret = src.clone();
+	for(int y = 0; y < src.rows; y++){
+		for(int x = 0; x < src.cols; x++){
+			float mindist = ((float)x-maximas[0].x)*((float)x-maximas[0].x) + ((float)y-maximas[0].y)*((float)y-maximas[0].y);
+			ret.at<float>(y,x) = 0.0;
+			for (int i = 1; i < maximas.size(); ++i)
+			{
+				float temp = ((float)x-maximas[i].x)*((float)x-maximas[i].x) + ((float)y-maximas[i].y)*((float)y-maximas[i].y);
+				if(temp < mindist){
+					mindist = temp;
+				ret.at<float>(y,x) = float(i);
+				}
+			}
+		}
+	}
+	return ret;
+}
+
+std::vector<cv::Point3f> calc_gaussians(cv::Mat hist, cv::Mat belongs, std::vector<cv::Point2f> maximas)
+{
+	std::vector<cv::Point3f> ret;
+	std::vector<float> count;
+	for (int i = 0; i < maximas.size(); ++i){
+		ret.push_back(cv::Point3f(0.0,0.0,0.0));
+		count.push_back(0.0);
+	}
+
+	for (int y = 0; y < hist.rows; ++y){
+		for (int x = 0; x < hist.cols; ++x){
+			int where = (int)belongs.at<float>(y,x);
+			ret[where].x += hist.at<float>(y,x)*(float)x;
+			ret[where].y += hist.at<float>(y,x)*(float)y;
+			ret[where].z += hist.at<float>(y,x)*(float)x*(float)x + hist.at<float>(y,x)*(float)y*(float)y;
+			count[where] += 1.0;
+		}
+	}
+
+	for (int i = 0; i < maximas.size(); ++i)
+	{
+		ret[i].x /= count[i];
+		ret[i].y /= count[i];
+		ret[i].z /= count[i];
+		ret[i].z -= (ret[i].x*ret[i].x + ret[i].y*ret[i].y);
+	}
+	return ret;
+}
+
+
 void colorLines::init(cv::Mat img, const int r)
 {
 	const int num_bins = (450/r) + 1;
@@ -58,6 +162,17 @@ void colorLines::init(cv::Mat img, const int r)
 		}
 
 		//Call your gaussian fitting function on hist
+		cv::Mat dst = low_pass(hist);
+		std::vector<cv::Point2f> maximas = local_maxima(dst);
+		assert(maximas.size() > 0);
+		cv::Mat belongs = affiliation(hist, maximas);
+		std::vector<cv::Point3f> gaussians = calc_gaussians(hist,belongs,maximas);
+		
+		//gaussians in std::vector<cv::Point3f> gaussians
+		// each Point3f represents a gaussian
+		// x is mean in x and
+		// y is mean in y and
+		// z is variance
 
 	}
 
