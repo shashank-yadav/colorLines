@@ -10,10 +10,10 @@ cv::Mat low_pass(cv::Mat src)
   	double delta = 0;
   	int ddepth = -1;
 	int kernel_size = 3;
-    Mat kernel = Mat::ones( kernel_size, kernel_size, CV_32F )/ (float)(kernel_size*kernel_size);
-
+	Mat kernel = Mat::ones( kernel_size, kernel_size, CV_32F )/ (float)(kernel_size*kernel_size);
+	Mat dst;
     /// Apply filter
-    filter2D(src, dst, ddepth , kernel, anchor, delta, BORDER_DEFAULT );
+	filter2D(src, dst, ddepth , kernel, anchor, delta, BORDER_DEFAULT );
 	return dst;
 }
 
