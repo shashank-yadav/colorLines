@@ -6,30 +6,14 @@ colorLines::~colorLines(){}
 
 cv::Mat low_pass(cv::Mat src)
 {
-	// define the kernel
-	float Kernel[3][3] = {
-						{1/9.0, 1/9.0, 1/9.0},
-						{1/9.0, 1/9.0, 1/9.0},
-						{1/9.0, 1/9.0, 1/9.0}
-					   }; 
-	
-	cv::Mat dst = src.clone();
-	float sum;
-	for(int y = 0; y < src.rows; y++)
-		for(int x = 0; x < src.cols; x++)
-			dst.at<float>(y,x) = 0.0;
-	//convolution operation
-	for(int y = 1; y < src.rows - 1; y++){
-		for(int x = 1; x < src.cols - 1; x++){
-			sum = 0.0;
-			for(int k = -1; k <= 1;k++){
-				for(int j = -1; j <=1; j++){
-					sum = sum + Kernel[j+1][k+1]*src.at<float>(y - j, x - k);
-				}
-			}
-			dst.at<float>(y,x) = sum;
-		}
-	}
+	Point anchor = Point( -1, -1 );
+  	double delta = 0;
+  	int ddepth = -1;
+	int kernel_size = 3;
+    Mat kernel = Mat::ones( kernel_size, kernel_size, CV_32F )/ (float)(kernel_size*kernel_size);
+
+    /// Apply filter
+    filter2D(src, dst, ddepth , kernel, anchor, delta, BORDER_DEFAULT );
 	return dst;
 }
 
@@ -38,17 +22,27 @@ std::vector<cv::Point2f> local_maxima(cv::Mat src)
 {
 	const int border = 2;
 	std::vector<cv::Point2f> ret;
+
+	int nbx[8] = {-1 , -1, -1, 0 ,0 , 1 , 1, 1}; 
+	int nby[8] = {-1 , 0 , 1 , 1 ,-1, -1, 0, 1}; 
+	
 	for(int y = border; y < src.rows - border; y++){
 		for(int x = border; x < src.cols - border; x++){
 			bool maxima = true;
-			for(int k = -1; k <= 1;k++){
-				for(int j = -1; j <=1; j++){
-					if(src.at<float>(y - j, x - k) >= src.at<float>(y, x)){
-						maxima = false;
-						break;
-					}
+			for (int k = 0; k < 8; ++k){
+				if ( src.at<float>(y+nby[k], x+nbx[k]) >= src.at<float>(y, x) ){
+					maxima = false;
+					break;
 				}
 			}
+			// for(int k = -1; k <= 1;k++){
+			// 	for(int j = -1; j <=1; j++){
+			// 		if(src.at<float>(y - j, x - k) >= src.at<float>(y, x)){
+			// 			maxima = false;
+			// 			break;
+			// 		}
+			// 	}
+			// }
 			if(maxima){
 				ret.push_back(cv::Point2f((float)x,(float)y));
 			}
@@ -162,12 +156,38 @@ void colorLines::init(cv::Mat img, const int r)
 		}
 
 		//Call your gaussian fitting function on hist
+		// imwrite("hist"+to_string(i)+".png",hist);
 		cv::Mat dst = low_pass(hist);
+		Mat ucharMatScaled;
+		dst.convertTo(ucharMatScaled, CV_8UC1, 255, 0); 
+		imwrite("dstScaled"+to_string(i)+".png",ucharMatScaled);
+		// imwrite("dst"+to_string(i)+".png",dst);
+
 		std::vector<cv::Point2f> maximas = local_maxima(dst);
-		assert(maximas.size() > 0);
-		cv::Mat belongs = affiliation(hist, maximas);
-		std::vector<cv::Point3f> gaussians = calc_gaussians(hist,belongs,maximas);
-		
+
+		Mat temp = Mat::zeros(360,360,CV_8UC1);
+		for (int j = 0; j < maximas.size(); ++j){
+			temp.at<uchar>((int)maximas[j].y , (int)maximas[j].x) = 255;
+		}
+		imwrite("temp"+to_string(i)+".png",temp);
+		cout<<"Here"<<endl;
+		// assert(maximas.size() > 0);
+		if(maximas.size() > 0)
+		{
+			cv::Mat belongs = affiliation(hist, maximas);
+			std::vector<cv::Point3f> gaussians = calc_gaussians(hist,belongs,maximas);
+			
+			Mat result = Mat::zeros(360,360,CV_8UC1);
+			for (int j = 0; j < gaussians.size(); ++j){
+				result.at<uint>((int)gaussians[j].y , (int)gaussians[j].x) = 255;
+			}
+
+			// imwrite("img"+to_string(i)+".png",result);
+			result.convertTo(ucharMatScaled, CV_8UC1, 255, 0); 
+			imwrite("resultScaled"+to_string(i)+".png",ucharMatScaled);
+
+		}
+
 		//gaussians in std::vector<cv::Point3f> gaussians
 		// each Point3f represents a gaussian
 		// x is mean in x and
@@ -176,10 +196,4 @@ void colorLines::init(cv::Mat img, const int r)
 
 	}
 
-	// Mat ucharMat, ucharMatScaled;
-	// hist.convertTo(ucharMat, CV_8UC1);
-
-	// scale values from 0..1 to 0..255
-	// hist.convertTo(ucharMatScaled, CV_8UC1, 255, 0); 
-	// return ucharMatScaled;
 }

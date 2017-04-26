@@ -1,6 +1,7 @@
 #include "point.h"
 #include <vector>
 #include <math.h>
+#include <string>
 #include <opencv2/opencv.hpp>
 
 #define PI 3.14159265
