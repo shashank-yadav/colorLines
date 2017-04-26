@@ -7,6 +7,6 @@ include_directories(include)
 
 file(GLOB SOURCES "src/*.cpp")
 
-set(CMAKE_CXX_FLAGS "-std=c++0x")
+set(CMAKE_CXX_FLAGS "-std=c++0x -g")
 add_executable(main ${SOURCES})
 target_link_libraries(main ${OpenCV_LIBS})

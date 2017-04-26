@@ -14,6 +14,7 @@ cv::Mat low_pass(cv::Mat src)
 	Mat dst;
     /// Apply filter
 	filter2D(src, dst, ddepth , kernel, anchor, delta, BORDER_DEFAULT );
+	// bilateralFilter( src, dst, 15, 40, 40 );
 	return dst;
 }
 
@@ -63,7 +64,7 @@ cv::Mat affiliation(cv::Mat src, std::vector<cv::Point2f> maximas)
 				float temp = ((float)x-maximas[i].x)*((float)x-maximas[i].x) + ((float)y-maximas[i].y)*((float)y-maximas[i].y);
 				if(temp < mindist){
 					mindist = temp;
-				ret.at<float>(y,x) = float(i);
+					ret.at<float>(y,x) = float(i);
 				}
 			}
 		}
@@ -86,21 +87,29 @@ std::vector<cv::Point3f> calc_gaussians(cv::Mat hist, cv::Mat belongs, std::vect
 			ret[where].x += hist.at<float>(y,x)*(float)x;
 			ret[where].y += hist.at<float>(y,x)*(float)y;
 			ret[where].z += hist.at<float>(y,x)*(float)x*(float)x + hist.at<float>(y,x)*(float)y*(float)y;
-			count[where] += 1.0;
+			count[where] += hist.at<float>(y,x);
+			// if(hist.at<float>(y,x) != 0.0)
+			// 	std::cout << where << " " << hist.at<float>(y,x) << " " << ret[where].x << " " << ret[where].y << " " << count[where] << std::endl;
 		}
 	}
 
 	for (int i = 0; i < maximas.size(); ++i)
 	{
-		ret[i].x /= count[i];
-		ret[i].y /= count[i];
-		ret[i].z /= count[i];
-		ret[i].z -= (ret[i].x*ret[i].x + ret[i].y*ret[i].y);
+		if(count[i] > 0.0)
+		{
+			ret[i].x /= count[i];
+			ret[i].y /= count[i];
+			ret[i].z /= count[i];
+			ret[i].z -= (ret[i].x*ret[i].x + ret[i].y*ret[i].y);
+		}
 	}
+	// for (int j = 0; j < ret.size(); ++j){
+	// 	std::cout << j << " " << (int)ret[j].y << " " << ret[j].y << " " << (int)ret[j].x << " " << ret[j].x << std::endl;
+	// }
 	return ret;
 }
 
-
+// #include <stdlib.h>
 void colorLines::init(cv::Mat img, const int r)
 {
 	const int num_bins = (450/r) + 1;
@@ -170,7 +179,7 @@ void colorLines::init(cv::Mat img, const int r)
 			temp.at<uchar>((int)maximas[j].y , (int)maximas[j].x) = 255;
 		}
 		imwrite("temp"+to_string(i)+".png",temp);
-		cout<<"Here"<<endl;
+		cout<<"Here "<< maximas.size() <<endl;
 		// assert(maximas.size() > 0);
 		if(maximas.size() > 0)
 		{
@@ -179,14 +188,18 @@ void colorLines::init(cv::Mat img, const int r)
 			
 			Mat result = Mat::zeros(360,360,CV_8UC1);
 			for (int j = 0; j < gaussians.size(); ++j){
-				result.at<uint>((int)gaussians[j].y , (int)gaussians[j].x) = 255;
+				// std::cout << i << " " << (int)gaussians[j].y << " " << gaussians[j].y << " " << (int)gaussians[j].x << " " << gaussians[j].x << std::endl;
+				result.at<uchar>((int)gaussians[j].y , (int)gaussians[j].x) = (uchar)((int)gaussians[j].z);
 			}
 
 			// imwrite("img"+to_string(i)+".png",result);
+			// std::cout << belongs << std::endl;
+			// belongs.convertTo(ucharMatScaled, CV_8UC1, 255, 0); 
 			result.convertTo(ucharMatScaled, CV_8UC1, 255, 0); 
 			imwrite("resultScaled"+to_string(i)+".png",ucharMatScaled);
 
 		}
+
 
 		//gaussians in std::vector<cv::Point3f> gaussians
 		// each Point3f represents a gaussian
