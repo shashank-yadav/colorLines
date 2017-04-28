@@ -36,14 +36,7 @@ std::vector<cv::Point2f> local_maxima(cv::Mat src)
 					break;
 				}
 			}
-			// for(int k = -1; k <= 1;k++){
-			// 	for(int j = -1; j <=1; j++){
-			// 		if(src.at<float>(y - j, x - k) >= src.at<float>(y, x)){
-			// 			maxima = false;
-			// 			break;
-			// 		}
-			// 	}
-			// }
+
 			if(maxima){
 				ret.push_back(cv::Point2f((float)x,(float)y));
 			}
@@ -72,7 +65,7 @@ cv::Mat affiliation(cv::Mat src, std::vector<cv::Point2f> maximas)
 	return ret;
 }
 
-std::vector<cv::Point3f> calc_gaussians(cv::Mat hist, cv::Mat belongs, std::vector<cv::Point2f> maximas)
+std::vector<cv::Point3f> calc_gaussians(cv::Mat hist, cv::Mat belongs, std::vector<cv::Point2f> &maximas)
 {
 	std::vector<cv::Point3f> ret;
 	std::vector<float> count;
@@ -93,7 +86,10 @@ std::vector<cv::Point3f> calc_gaussians(cv::Mat hist, cv::Mat belongs, std::vect
 		}
 	}
 
-	for (int i = 0; i < maximas.size(); ++i)
+	std::vector<cv::Point2f> temp = maximas;
+	maximas.clear();
+	std::vector<cv::Point3f> rt;
+	for (int i = 0; i < temp.size(); ++i)
 	{
 		if(count[i] > 0.0)
 		{
@@ -101,17 +97,58 @@ std::vector<cv::Point3f> calc_gaussians(cv::Mat hist, cv::Mat belongs, std::vect
 			ret[i].y /= count[i];
 			ret[i].z /= count[i];
 			ret[i].z -= (ret[i].x*ret[i].x + ret[i].y*ret[i].y);
+			// temp.push_back(maximas[i]);
+			maximas.push_back(temp[i]);
+			rt.push_back(ret[i]);
 		}
 	}
 	// for (int j = 0; j < ret.size(); ++j){
 	// 	std::cout << j << " " << (int)ret[j].y << " " << ret[j].y << " " << (int)ret[j].x << " " << ret[j].x << std::endl;
 	// }
-	return ret;
+	return rt;
+}
+
+bool checkNbrs(Point p, Mat maximaPos , Mat maximaValues , const int search_size)
+{
+	for (int x = p.x - search_size; x < p.x + search_size; ++x){
+		for (int y = p.y - search_size; y < p.y + search_size; ++y){
+			if (x >= 0 && y >= 0 && x < maximaPos.cols && y < maximaPos.rows && maximaPos.at<uchar>(y,x) > 0 ){
+				if ( maximaValues.at<float>(y,x) > maximaValues.at<float>( p.y , p.x ) )
+				{
+					return true;
+				}
+			}
+		}
+	}
+
+	return false;
+}
+
+
+vector<cv::Point2f> combineMaximas(vector<cv::Point2f> maximas , Mat maximaValues , const int search_size)
+{
+	
+	vector<cv::Point2f> maximas_combined;	
+	Mat maximaPos = Mat::zeros(360,360,CV_8UC1);
+	for (int i = 0; i < maximas.size(); ++i){
+		maximaPos.at<uchar>((int)maximas[i].y , (int)maximas[i].x) = 255;
+	}
+
+	for (int i = 0; i < maximas.size(); ++i){
+		Point2i p = Point2i( (int)maximas[i].x , (int)maximas[i].y );
+
+		if ( ! checkNbrs(p,maximaPos,maximaValues,search_size) ){
+			maximas_combined.push_back( maximas[i] );
+		}
+	}
+
+	return maximas_combined;
 }
 
 // #include <stdlib.h>
-void colorLines::init(cv::Mat img, const int r)
+void colorLines::init(cv::Mat img,  const int r)
 {
+	this->radius = radius;
 	const int num_bins = (450/r) + 1;
 	std::vector<Point> imagePts[num_bins];
 
@@ -178,8 +215,28 @@ void colorLines::init(cv::Mat img, const int r)
 		for (int j = 0; j < maximas.size(); ++j){
 			temp.at<uchar>((int)maximas[j].y , (int)maximas[j].x) = 255;
 		}
+
+
 		imwrite("temp"+to_string(i)+".png",temp);
 		cout<<"Here "<< maximas.size() <<endl;
+
+
+		std::vector<cv::Point2f> maximas_combined = combineMaximas(maximas , dst ,5);
+		temp = Mat::zeros(360,360,CV_8UC1);
+		for (int j = 0; j < maximas_combined.size(); ++j){
+			temp.at<uchar>((int)maximas_combined[j].y , (int)maximas_combined[j].x) = 255;
+		}
+
+
+		if(i < 10){
+			imwrite("tempC0"+to_string(i)+".png",temp);
+		}
+		else{
+			imwrite("tempC"+to_string(i)+".png",temp);
+		}
+		cout<<"HereC "<< maximas_combined.size() <<endl;
+
+
 		// assert(maximas.size() > 0);
 		if(maximas.size() > 0)
 		{

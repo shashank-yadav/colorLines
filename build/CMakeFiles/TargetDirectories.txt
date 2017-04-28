@@ -1,3 +1,0 @@
-/home/shashank/colorLines/build/CMakeFiles/edit_cache.dir
-/home/shashank/colorLines/build/CMakeFiles/rebuild_cache.dir
-/home/shashank/colorLines/build/CMakeFiles/main.dir
