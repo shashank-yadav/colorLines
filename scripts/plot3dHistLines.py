@@ -4,6 +4,7 @@ import cv2
 import math
 from mpl_toolkits.mplot3d import Axes3D
 import matplotlib.pyplot as plt
+import matplotlib.cm as cm
 
 
 radius = 10
@@ -12,15 +13,36 @@ xp = []
 yp = []
 zp = []
 
+fig = plt.figure()
+ax = fig.add_subplot(111, projection='3d')
+ax.set_xlabel('B')
+ax.set_ylabel('G')
+ax.set_zlabel('R')
+
+
+
 
 with open('../build/output.txt') as f:
 	# do something
 	number_of_lines = int(f.readline())
 	print number_of_lines
-	for i in range(number_lines):
+	colors = cm.rainbow(np.linspace(0, 1, number_of_lines))
+	for i in range(number_of_lines):
 		number_of_points = int(f.readline())
+		xp = []
+		yp = []
+		zp = []
 		for j in range(number_of_points):
 			# do something
+			xp.append(float(f.readline()))
+			yp.append(float(f.readline()))
+			zp.append(float(f.readline()))
+			ax.scatter(xp, yp, zp, c='r', marker='o', color=colors[i])
+
+
+
+plt.show()
+
 
 
 # for file in files:
@@ -43,13 +65,13 @@ with open('../build/output.txt') as f:
 # 	# print rad
 
 
-# fig = plt.figure()
-# ax = fig.add_subplot(111, projection='3d')
-# ax.scatter(xp, yp, zp, c='r', marker='o')
+fig = plt.figure()
+ax = fig.add_subplot(111, projection='3d')
+ax.scatter(xp, yp, zp, c='r', marker='o')
 
-# ax.set_xlabel('B')
-# ax.set_ylabel('G')
-# ax.set_zlabel('R')
+ax.set_xlabel('B')
+ax.set_ylabel('G')
+ax.set_zlabel('R')
 
-# plt.show()
+plt.show()
 
