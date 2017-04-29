@@ -145,6 +145,78 @@ vector<cv::Point2f> combineMaximas(vector<cv::Point2f> maximas , Mat maximaValue
 	return maximas_combined;
 }
 
+
+int get_nearest_index(cv::Point3f pt, std::vector<cv::Point3f> &gaussians){
+	int ret = 0;
+	float min_distance = (pt.x-gaussians[0].x)*(pt.x-gaussians[0].x) + (pt.y-gaussians[0].y)*(pt.y-gaussians[0].y);
+	for (int i = 0; i < gaussians.size(); ++i){
+		float temp_distance = (pt.x-gaussians[i].x)*(pt.x-gaussians[i].x) + (pt.y-gaussians[i].y)*(pt.y-gaussians[i].y);
+		if(temp_distance  < min_distance){
+			min_distance = temp_distance;
+			ret = i;
+		}
+	}
+	return ret;
+}
+
+
+void formLinesLeft(std::vector< std::vector<cv::Point3f> > &histogram_slices_gaussians , std::vector< std::vector<cv::Point2f> > &histogram_slices_maximas , std::vector<cv::Mat> &histogram_slices , const int search_size, std::vector<colorLine> &lines, int number_lines, int start_point, std::vector<int> affiliated_color_line, const int r){
+	//do something
+	assert(histogram_slices_maximas[start_point].size() == affiliated_color_line.size());
+	if(start_point == 0){
+		return;
+	}
+	--start_point;
+	{
+		std::vector<int> acl_new;
+		for (int i = 0; i < histogram_slices_gaussians[start_point].size(); ++i){
+			int nearest_index = affiliated_color_line[get_nearest_index(histogram_slices_gaussians[start_point][i] , histogram_slices_gaussians[start_point+1])];
+			acl_new.push_back(i);
+
+			point temp;
+			float theta = histogram_slices_maximas[start_point][i].x*PI/180.0;
+			float phi = histogram_slices_maximas[start_point][i].y*PI/180.0;
+			temp.b = r*start_point*sin(phi)*cos(theta);
+			temp.g = r*start_point*sin(phi)*sin(theta);
+			temp.r = r*start_point*cos(phi);
+			temp.mu_x = histogram_slices_gaussians[start_point][i].x;
+			temp.mu_y = histogram_slices_gaussians[start_point][i].y;
+			temp.sigma = histogram_slices_gaussians[start_point][i].z;
+			lines[nearest_index].push_back(temp);
+		}
+		formLinesLeft(histogram_slices_gaussians, histogram_slices_maximas , histogram_slices , 5, lines, number_lines, start_point, acl_new, r);
+	}
+
+}
+
+void formLinesRight(std::vector< std::vector<cv::Point3f> > &histogram_slices_gaussians , std::vector< std::vector<cv::Point2f> > &histogram_slices_maximas , std::vector<cv::Mat> &histogram_slices , const int search_size, std::vector<colorLine> &lines, int number_lines, int start_point, std::vector<int> affiliated_color_line, const int r){
+	//do something
+	assert(histogram_slices_maximas[start_point].size() == affiliated_color_line.size());
+	if(start_point == 0){
+		return;
+	}
+	++start_point;
+	{
+		std::vector<int> acl_new;
+		for (int i = 0; i < histogram_slices_gaussians[start_point].size(); ++i){
+			int nearest_index = affiliated_color_line[get_nearest_index(histogram_slices_gaussians[start_point][i] , histogram_slices_gaussians[start_point-1])];
+			acl_new.push_back(i);
+
+			point temp;
+			float theta = histogram_slices_maximas[start_point][i].x*PI/180.0;
+			float phi = histogram_slices_maximas[start_point][i].y*PI/180.0;
+			temp.b = r*start_point*sin(phi)*cos(theta);
+			temp.g = r*start_point*sin(phi)*sin(theta);
+			temp.r = r*start_point*cos(phi);
+			temp.mu_x = histogram_slices_gaussians[start_point][i].x;
+			temp.mu_y = histogram_slices_gaussians[start_point][i].y;
+			temp.sigma = histogram_slices_gaussians[start_point][i].z;
+			lines[nearest_index].push_back(temp);
+		}
+		formLinesLeft(histogram_slices_gaussians, histogram_slices_maximas , histogram_slices , 5, lines, number_lines, start_point, acl_new, r);
+	}
+}
+
 // #include <stdlib.h>
 void colorLines::init(cv::Mat img,  const int r)
 {
@@ -184,13 +256,20 @@ void colorLines::init(cv::Mat img,  const int r)
 	
 				int x = (int)(theta*180/PI);
 				int y = (int)(phi*180/PI);
-	
+
 				// hist.at<float>(y,x) += 1;
 				imagePts[bin_id].push_back( Point(x,y) );
 				// cout<<hist.at<float>(y,x)<<endl;
 			}
 		}
 	}
+
+	std::vector<cv::Mat> histogram_slices;
+	std::vector< std::vector<cv::Point2f> > histogram_slices_maximas;
+	std::vector< std::vector<cv::Point3f> > histogram_slices_gaussians;
+	std::vector<int> histogram_slice_size;
+	int max_lines = 0;
+	int max_lines_index = 0;
 
 	for (int i = 0; i < num_bins; ++i)
 	{
@@ -238,24 +317,40 @@ void colorLines::init(cv::Mat img,  const int r)
 
 
 		// assert(maximas.size() > 0);
-		if(maximas.size() > 0)
-		{
+		if(maximas.size() > 0){
 			cv::Mat belongs = affiliation(hist, maximas);
 			std::vector<cv::Point3f> gaussians = calc_gaussians(hist,belongs,maximas);
+			std::vector<cv::Point2f> stay_put;
 			
 			Mat result = Mat::zeros(360,360,CV_8UC1);
 			for (int j = 0; j < gaussians.size(); ++j){
-				// std::cout << i << " " << (int)gaussians[j].y << " " << gaussians[j].y << " " << (int)gaussians[j].x << " " << gaussians[j].x << std::endl;
 				result.at<uchar>((int)gaussians[j].y , (int)gaussians[j].x) = (uchar)((int)gaussians[j].z);
+				stay_put.push_back(cv::Point2f(gaussians[j].x,gaussians[j].y));
 			}
 
-			// imwrite("img"+to_string(i)+".png",result);
-			// std::cout << belongs << std::endl;
-			// belongs.convertTo(ucharMatScaled, CV_8UC1, 255, 0); 
+			if(gaussians.size() > max_lines){
+				max_lines = gaussians.size();
+				max_lines_index = i;
+			}
+			
+			histogram_slices.push_back(result);
+			histogram_slice_size.push_back(gaussians.size());
+			histogram_slices_gaussians.push_back(gaussians);
+			histogram_slices_maximas.push_back(stay_put);
 			result.convertTo(ucharMatScaled, CV_8UC1, 255, 0); 
 			imwrite("resultScaled"+to_string(i)+".png",ucharMatScaled);
 
 		}
+		else{
+			Mat result = Mat::zeros(360,360,CV_8UC1);
+			histogram_slices.push_back(result);
+			histogram_slice_size.push_back(0);
+			std::vector<cv::Point3f> gaussians;
+			histogram_slices_gaussians.push_back(gaussians);
+			std::vector<cv::Point2f> stay_put;
+			histogram_slices_maximas.push_back(stay_put);
+		}
+		
 
 
 		//gaussians in std::vector<cv::Point3f> gaussians
@@ -266,4 +361,46 @@ void colorLines::init(cv::Mat img,  const int r)
 
 	}
 
+	// all histogram slices present here
+	// std::vector<colorLine> lines;
+	// for (int i = 0; i < histogram_slices_maximas.size(); ++i)
+	// {
+	// 	std::cout << histogram_slices_maximas[i].size() << std::endl;
+	// }
+	// std::cout << histogram_slices_maximas[max_lines_index].size() << " " << max_lines << " " << histogram_slices_gaussians[max_lines_index].size() << std::endl;
+	assert(histogram_slices_maximas[max_lines_index].size() == max_lines);
+	
+	//initialize the color lines with some points
+	std::vector<int> affiliated_color_line;
+	for (int l = 0; l < histogram_slices_maximas[max_lines_index].size(); ++l)
+	{
+		std::vector<point> temp_vec;
+		point temp;
+		float theta = histogram_slices_maximas[max_lines_index][l].x*PI/180.0;
+		float phi = histogram_slices_maximas[max_lines_index][l].y*PI/180.0;
+		temp.b = r*max_lines_index*sin(phi)*cos(theta);
+		temp.g = r*max_lines_index*sin(phi)*sin(theta);
+		temp.r = r*max_lines_index*cos(phi);
+		temp.mu_x = histogram_slices_gaussians[max_lines_index][l].x;
+		temp.mu_y = histogram_slices_gaussians[max_lines_index][l].y;
+		temp.sigma = histogram_slices_gaussians[max_lines_index][l].z;
+		temp_vec.push_back(temp);
+		lines.push_back(temp_vec);
+		affiliated_color_line.push_back(l);
+	}
+
+	formLinesLeft(histogram_slices_gaussians, histogram_slices_maximas , histogram_slices , 5, lines, max_lines, max_lines_index, affiliated_color_line, r);
+	formLinesRight(histogram_slices_gaussians, histogram_slices_maximas , histogram_slices , 5, lines, max_lines, max_lines_index, affiliated_color_line, r);
+
+	std::cerr << lines.size() << std::endl; 
+	for (int i = 0; i < lines.size(); ++i){
+		std::cerr << lines[i].size() << std::endl;
+		for (int j = 0; j < lines[i].size(); ++j)
+		{
+			std::cerr << lines[i][j].r << "\n" << lines[i][j].g << "\n" << lines[i][j].b << std::endl;
+		}
+	}
+
 }
+
+
