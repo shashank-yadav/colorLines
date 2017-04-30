@@ -27,7 +27,9 @@ with open('../build/output.txt') as f:
 	number_of_lines = int(f.readline())
 	print number_of_lines
 	# number_of_lines = 2
-	colors = cm.rainbow(np.linspace(0, 1, number_of_lines))
+	colors = cm.rainbow(np.linspace(0, 1, 3))
+	# colors = cm.rainbow(np.linspace(0, 1, number_of_lines))
+	counter = 0
 	for i in range(number_of_lines):
 		number_of_points = int(f.readline())
 		xp = []
@@ -38,7 +40,9 @@ with open('../build/output.txt') as f:
 			xp.append(float(f.readline()))
 			yp.append(float(f.readline()))
 			zp.append(float(f.readline()))
-			ax.scatter(xp, yp, zp, c='r', marker='o', color=colors[i])
+		if(number_of_points > 40):
+			ax.scatter(xp, yp, zp, c='r', marker='o', color=colors[counter])
+			counter += 1
 
 
 

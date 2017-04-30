@@ -151,11 +151,13 @@ int get_nearest_index(cv::Point3f pt, std::vector<cv::Point3f> &gaussians){
 	float min_distance = (pt.x-gaussians[0].x)*(pt.x-gaussians[0].x) + (pt.y-gaussians[0].y)*(pt.y-gaussians[0].y);
 	for (int i = 0; i < gaussians.size(); ++i){
 		float temp_distance = (pt.x-gaussians[i].x)*(pt.x-gaussians[i].x) + (pt.y-gaussians[i].y)*(pt.y-gaussians[i].y);
+		// std::cout << temp_distance << " " << min_distance << std::endl;
 		if(temp_distance  < min_distance){
 			min_distance = temp_distance;
 			ret = i;
 		}
 	}
+	// std::cout << std::endl;
 	return ret;
 }
 
@@ -172,7 +174,7 @@ void formLinesLeft(std::vector< std::vector<cv::Point3f> > &histogram_slices_gau
 		std::vector<int> acl_new;
 		for (int i = 0; i < histogram_slices_gaussians[start_point].size(); ++i){
 			int nearest_index = affiliated_color_line[get_nearest_index(histogram_slices_gaussians[start_point][i] , histogram_slices_gaussians[start_point+1])];
-			acl_new.push_back(i);
+			acl_new.push_back(nearest_index);
 
 			point temp;
 			float theta = histogram_slices_maximas[start_point][i].x*PI/180.0;
@@ -204,7 +206,8 @@ void formLinesRight(std::vector< std::vector<cv::Point3f> > &histogram_slices_ga
 		std::vector<int> acl_new;
 		for (int i = 0; i < histogram_slices_gaussians[start_point].size(); ++i){
 			int nearest_index = affiliated_color_line[get_nearest_index(histogram_slices_gaussians[start_point][i] , histogram_slices_gaussians[start_point-1])];
-			acl_new.push_back(i);
+			acl_new.push_back(nearest_index);
+
 
 			point temp;
 			float theta = histogram_slices_maximas[start_point][i].x*PI/180.0;
@@ -217,6 +220,8 @@ void formLinesRight(std::vector< std::vector<cv::Point3f> > &histogram_slices_ga
 			temp.sigma = histogram_slices_gaussians[start_point][i].z;
 			lines[nearest_index].push_back(temp);
 		}
+		// int a;
+		// std::cin >> a;
 		formLinesRight(histogram_slices_gaussians, histogram_slices_maximas , histogram_slices , 5, lines, number_lines, start_point, acl_new, r);
 	}
 }
@@ -376,6 +381,7 @@ void colorLines::init(cv::Mat img,  const int r)
 	
 	//initialize the color lines with some points
 	std::vector<int> affiliated_color_line;
+	// for (int l = 0; l < 2; ++l)
 	for (int l = 0; l < histogram_slices_maximas[max_lines_index].size(); ++l)
 	{
 		std::vector<point> temp_vec;
