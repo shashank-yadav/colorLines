@@ -163,6 +163,7 @@ int get_nearest_index(cv::Point3f pt, std::vector<cv::Point3f> &gaussians){
 void formLinesLeft(std::vector< std::vector<cv::Point3f> > &histogram_slices_gaussians , std::vector< std::vector<cv::Point2f> > &histogram_slices_maximas , std::vector<cv::Mat> &histogram_slices , const int search_size, std::vector<colorLine> &lines, int number_lines, int start_point, std::vector<int> affiliated_color_line, const int r){
 	//do something
 	assert(histogram_slices_maximas[start_point].size() == affiliated_color_line.size());
+	std::cout << "left " << start_point << std::endl;
 	if(start_point == 0){
 		return;
 	}
@@ -192,7 +193,10 @@ void formLinesLeft(std::vector< std::vector<cv::Point3f> > &histogram_slices_gau
 void formLinesRight(std::vector< std::vector<cv::Point3f> > &histogram_slices_gaussians , std::vector< std::vector<cv::Point2f> > &histogram_slices_maximas , std::vector<cv::Mat> &histogram_slices , const int search_size, std::vector<colorLine> &lines, int number_lines, int start_point, std::vector<int> affiliated_color_line, const int r){
 	//do something
 	assert(histogram_slices_maximas[start_point].size() == affiliated_color_line.size());
-	if(start_point == 0){
+	const int num_bins = (450/r) + 1;
+	assert(num_bins == histogram_slices.size());
+	std::cout << "right " << start_point << std::endl;
+	if(start_point == num_bins - 1){
 		return;
 	}
 	++start_point;
@@ -213,7 +217,7 @@ void formLinesRight(std::vector< std::vector<cv::Point3f> > &histogram_slices_ga
 			temp.sigma = histogram_slices_gaussians[start_point][i].z;
 			lines[nearest_index].push_back(temp);
 		}
-		formLinesLeft(histogram_slices_gaussians, histogram_slices_maximas , histogram_slices , 5, lines, number_lines, start_point, acl_new, r);
+		formLinesRight(histogram_slices_gaussians, histogram_slices_maximas , histogram_slices , 5, lines, number_lines, start_point, acl_new, r);
 	}
 }
 
@@ -395,6 +399,7 @@ void colorLines::init(cv::Mat img,  const int r)
 	std::cerr << lines.size() << std::endl; 
 	for (int i = 0; i < lines.size(); ++i){
 		std::cerr << lines[i].size() << std::endl;
+		std::cout << lines[i].size() << std::endl;
 		for (int j = 0; j < lines[i].size(); ++j)
 		{
 			std::cerr << lines[i][j].r << "\n" << lines[i][j].g << "\n" << lines[i][j].b << std::endl;

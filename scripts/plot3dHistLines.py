@@ -26,6 +26,7 @@ with open('../build/output.txt') as f:
 	# do something
 	number_of_lines = int(f.readline())
 	print number_of_lines
+	# number_of_lines = 2
 	colors = cm.rainbow(np.linspace(0, 1, number_of_lines))
 	for i in range(number_of_lines):
 		number_of_points = int(f.readline())
@@ -65,13 +66,13 @@ plt.show()
 # 	# print rad
 
 
-fig = plt.figure()
-ax = fig.add_subplot(111, projection='3d')
-ax.scatter(xp, yp, zp, c='r', marker='o')
+# fig = plt.figure()
+# ax = fig.add_subplot(111, projection='3d')
+# ax.scatter(xp, yp, zp, c='r', marker='o')
 
-ax.set_xlabel('B')
-ax.set_ylabel('G')
-ax.set_zlabel('R')
+# ax.set_xlabel('B')
+# ax.set_ylabel('G')
+# ax.set_zlabel('R')
 
-plt.show()
+# plt.show()
 
