@@ -18,11 +18,18 @@ class colorLines
 public:
 	
 	std::vector<colorLine> lines;
+	
+	// to be used only after cleanup
+	// cleanup called in init
+	std::vector< std::vector<colorLine> > lines_cleanedup;
 	int radius;
 	
 	colorLines();
 	~colorLines();
 
 	void init(cv::Mat img , const int r);
+
+	void cleanup(colorLine line);
 	
+	std::vector<float> get_probability(cv::Point3d input);
 };

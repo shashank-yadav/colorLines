@@ -229,7 +229,7 @@ void formLinesRight(std::vector< std::vector<cv::Point3f> > &histogram_slices_ga
 // #include <stdlib.h>
 void colorLines::init(cv::Mat img,  const int r)
 {
-	this->radius = radius;
+	this->radius = r;
 	const int num_bins = (450/r) + 1;
 	std::vector<Point> imagePts[num_bins];
 
@@ -401,9 +401,11 @@ void colorLines::init(cv::Mat img,  const int r)
 
 	formLinesLeft(histogram_slices_gaussians, histogram_slices_maximas , histogram_slices , 5, lines, max_lines, max_lines_index, affiliated_color_line, r);
 	formLinesRight(histogram_slices_gaussians, histogram_slices_maximas , histogram_slices , 5, lines, max_lines, max_lines_index, affiliated_color_line, r);
+	
 
 	std::cerr << lines.size() << std::endl; 
 	for (int i = 0; i < lines.size(); ++i){
+		cleanup(lines[i]);
 		std::cerr << lines[i].size() << std::endl;
 		std::cout << lines[i].size() << std::endl;
 		for (int j = 0; j < lines[i].size(); ++j)
@@ -412,6 +414,96 @@ void colorLines::init(cv::Mat img,  const int r)
 		}
 	}
 
+	Mat ret = Mat::zeros(img.size(),CV_8UC1);
+	for (int i = 0; i < img.cols; ++i){
+		for (int j = 0; j < img.rows; ++j){
+			std::cout << "start loop " << i << " " << j << std::endl;
+			Vec3d pixel1= img.at<Vec3b>(j,i);
+			Point3d pixel= (Point3d)pixel1;
+			std::cout << "start get probability" << std::endl;
+			std::vector<float> probs = get_probability(pixel);
+			std::cout << "end get probability" << std::endl;
+			int max_id = 0;
+			float max_prob = probs[0];
+			std::cout << probs[0] << std::endl;
+			for (int k = 0; k < probs.size(); ++k)
+			{
+				std::cout << probs[k] << k << probs.size() << std::endl;
+				if(probs[k] > max_prob){
+					max_id = k;
+					max_prob = probs[k];
+				}
+			}
+			std::cout << "end loop " << i << " " << j << std::endl;
+			// ret.at<uchar>(j,i) = max_id + 1;
+		}
+	}
+	cv::Mat retMatScaled;
+	ret.convertTo(retMatScaled, CV_8UC1, 255, 0);
+	imwrite("color_line_id.png",ret);
+
 }
 
+
+void colorLines::cleanup(colorLine line){
+	int r = radius;
+	const int num_bins = (450/r) + 1;
+	std::vector<colorLine> temp;
+	lines_cleanedup.push_back(temp);
+	lines_cleanedup[lines_cleanedup.size()-1].resize(num_bins);
+	for (int i = 0; i < line.size(); ++i){
+		float magnitude = norm(cv::Point3d(line[i].b,line[i].g,line[i].r));
+		int bin_id = magnitude/r + 1;
+		lines_cleanedup[lines_cleanedup.size()-1][bin_id].push_back(line[i]);
+	}
+}
+
+inline float gaussian_probability(float x, float y, float mu_x, float mu_y, float sigma){
+	float ret = 1/(2.0*PI*sigma*sigma);
+	float temp = -((x-mu_x)*(x-mu_x) + (y-mu_y)*(y-mu_y))/(2.0*sigma*sigma);
+	ret *= exp(temp);
+	// cout<<"Prob : "<<ret<<endl;
+	return ret;
+}
+
+std::vector<float> colorLines::get_probability(cv::Point3d input){
+	int r = radius;
+	float magnitude = norm(input);
+	int bin_id = magnitude/r + 1;
+	const int num_bins = (450/r) + 1;
+	std::vector<float> ret;
+	ret.resize(num_bins);
+	Point3d eps =  Point3d(0.01,0.01,0.01);
+	for (int i = 0; i < lines_cleanedup.size(); ++i){
+		ret[i] = 0.0;
+		std::cout << i << " " << lines_cleanedup[i].size() << std::endl;
+		if(lines_cleanedup[i].size() > 0){
+			// for (int j = 0; j < num_bins; ++j)
+			// {
+			int j = bin_id;//just for fun
+			std::cout << i << " " << j << " " << num_bins << " " << lines_cleanedup[i][j].size() << std::endl;
+			if(lines_cleanedup[i][j].size() > 0){
+				// float max_prob = 0.0;
+				for (int k = 0; k < lines_cleanedup[i][j].size(); ++k){
+					Point3d proj_pt = bin_id*((Point3d)input) + eps;
+		
+					double theta = atan(proj_pt.y/proj_pt.x);
+		
+					double temp = sqrt(proj_pt.x*proj_pt.x + proj_pt.y*proj_pt.y);
+					double phi = atan(  temp/proj_pt.z );
+		
+					float x = (theta*180/PI);
+					float y = (phi*180/PI);
+					float temp_prob = gaussian_probability(x, y, lines_cleanedup[i][j][k].mu_x, lines_cleanedup[i][j][k].mu_y, lines_cleanedup[i][j][k].sigma);
+					// if(temp_prob > ret[i]){
+					ret[i] = max(temp_prob,ret[i]);
+					// }
+				}
+			}
+			std::cout << i << " " << j << " " << num_bins << " " << lines_cleanedup[i][j].size() << std::endl;
+			// }
+		}
+	}
+	return ret;
+}
 
