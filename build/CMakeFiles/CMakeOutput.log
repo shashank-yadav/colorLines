@@ -28,28 +28,28 @@ The CXX compiler identification is GNU, found in "/home/netra/pranjal/colorLines
 Determining if the C compiler works passed with the following output:
 Change Dir: /home/netra/pranjal/colorLines/build/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/make" "cmTC_1d020/fast"
-/usr/bin/make -f CMakeFiles/cmTC_1d020.dir/build.make CMakeFiles/cmTC_1d020.dir/build
+Run Build Command:"/usr/bin/make" "cmTC_ca422/fast"
+/usr/bin/make -f CMakeFiles/cmTC_ca422.dir/build.make CMakeFiles/cmTC_ca422.dir/build
 make[1]: Entering directory `/home/netra/pranjal/colorLines/build/CMakeFiles/CMakeTmp'
-Building C object CMakeFiles/cmTC_1d020.dir/testCCompiler.c.o
-/usr/bin/cc     -o CMakeFiles/cmTC_1d020.dir/testCCompiler.c.o   -c /home/netra/pranjal/colorLines/build/CMakeFiles/CMakeTmp/testCCompiler.c
-Linking C executable cmTC_1d020
-/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_1d020.dir/link.txt --verbose=1
-/usr/bin/cc       CMakeFiles/cmTC_1d020.dir/testCCompiler.c.o  -o cmTC_1d020 -rdynamic 
+Building C object CMakeFiles/cmTC_ca422.dir/testCCompiler.c.o
+/usr/bin/cc     -o CMakeFiles/cmTC_ca422.dir/testCCompiler.c.o   -c /home/netra/pranjal/colorLines/build/CMakeFiles/CMakeTmp/testCCompiler.c
+Linking C executable cmTC_ca422
+/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_ca422.dir/link.txt --verbose=1
+/usr/bin/cc       CMakeFiles/cmTC_ca422.dir/testCCompiler.c.o  -o cmTC_ca422 -rdynamic 
 make[1]: Leaving directory `/home/netra/pranjal/colorLines/build/CMakeFiles/CMakeTmp'
 
 
 Detecting C compiler ABI info compiled with the following output:
 Change Dir: /home/netra/pranjal/colorLines/build/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/make" "cmTC_284f1/fast"
-/usr/bin/make -f CMakeFiles/cmTC_284f1.dir/build.make CMakeFiles/cmTC_284f1.dir/build
+Run Build Command:"/usr/bin/make" "cmTC_df918/fast"
+/usr/bin/make -f CMakeFiles/cmTC_df918.dir/build.make CMakeFiles/cmTC_df918.dir/build
 make[1]: Entering directory `/home/netra/pranjal/colorLines/build/CMakeFiles/CMakeTmp'
-Building C object CMakeFiles/cmTC_284f1.dir/CMakeCCompilerABI.c.o
-/usr/bin/cc     -o CMakeFiles/cmTC_284f1.dir/CMakeCCompilerABI.c.o   -c /usr/local/share/cmake-3.5/Modules/CMakeCCompilerABI.c
-Linking C executable cmTC_284f1
-/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_284f1.dir/link.txt --verbose=1
-/usr/bin/cc      -v CMakeFiles/cmTC_284f1.dir/CMakeCCompilerABI.c.o  -o cmTC_284f1 -rdynamic  
+Building C object CMakeFiles/cmTC_df918.dir/CMakeCCompilerABI.c.o
+/usr/bin/cc     -o CMakeFiles/cmTC_df918.dir/CMakeCCompilerABI.c.o   -c /usr/local/share/cmake-3.5/Modules/CMakeCCompilerABI.c
+Linking C executable cmTC_df918
+/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_df918.dir/link.txt --verbose=1
+/usr/bin/cc      -v CMakeFiles/cmTC_df918.dir/CMakeCCompilerABI.c.o  -o cmTC_df918 -rdynamic  
 Using built-in specs.
 COLLECT_GCC=/usr/bin/cc
 COLLECT_LTO_WRAPPER=/usr/lib/gcc/x86_64-linux-gnu/4.8/lto-wrapper
@@ -59,8 +59,8 @@ Thread model: posix
 gcc version 4.8.4 (Ubuntu 4.8.4-2ubuntu1~14.04.3) 
 COMPILER_PATH=/usr/lib/gcc/x86_64-linux-gnu/4.8/:/usr/lib/gcc/x86_64-linux-gnu/4.8/:/usr/lib/gcc/x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/4.8/:/usr/lib/gcc/x86_64-linux-gnu/
 LIBRARY_PATH=/usr/lib/gcc/x86_64-linux-gnu/4.8/:/usr/lib/gcc/x86_64-linux-gnu/4.8/../../../x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/4.8/../../../../lib/:/lib/x86_64-linux-gnu/:/lib/../lib/:/usr/lib/x86_64-linux-gnu/:/usr/lib/../lib/:/usr/lib/gcc/x86_64-linux-gnu/4.8/../../../:/lib/:/usr/lib/
-COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_284f1' '-rdynamic' '-mtune=generic' '-march=x86-64'
- /usr/lib/gcc/x86_64-linux-gnu/4.8/collect2 --sysroot=/ --build-id --eh-frame-hdr -m elf_x86_64 --hash-style=gnu --as-needed -export-dynamic -dynamic-linker /lib64/ld-linux-x86-64.so.2 -z relro -o cmTC_284f1 /usr/lib/gcc/x86_64-linux-gnu/4.8/../../../x86_64-linux-gnu/crt1.o /usr/lib/gcc/x86_64-linux-gnu/4.8/../../../x86_64-linux-gnu/crti.o /usr/lib/gcc/x86_64-linux-gnu/4.8/crtbegin.o -L/usr/lib/gcc/x86_64-linux-gnu/4.8 -L/usr/lib/gcc/x86_64-linux-gnu/4.8/../../../x86_64-linux-gnu -L/usr/lib/gcc/x86_64-linux-gnu/4.8/../../../../lib -L/lib/x86_64-linux-gnu -L/lib/../lib -L/usr/lib/x86_64-linux-gnu -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-linux-gnu/4.8/../../.. CMakeFiles/cmTC_284f1.dir/CMakeCCompilerABI.c.o -lgcc --as-needed -lgcc_s --no-as-needed -lc -lgcc --as-needed -lgcc_s --no-as-needed /usr/lib/gcc/x86_64-linux-gnu/4.8/crtend.o /usr/lib/gcc/x86_64-linux-gnu/4.8/../../../x86_64-linux-gnu/crtn.o
+COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_df918' '-rdynamic' '-mtune=generic' '-march=x86-64'
+ /usr/lib/gcc/x86_64-linux-gnu/4.8/collect2 --sysroot=/ --build-id --eh-frame-hdr -m elf_x86_64 --hash-style=gnu --as-needed -export-dynamic -dynamic-linker /lib64/ld-linux-x86-64.so.2 -z relro -o cmTC_df918 /usr/lib/gcc/x86_64-linux-gnu/4.8/../../../x86_64-linux-gnu/crt1.o /usr/lib/gcc/x86_64-linux-gnu/4.8/../../../x86_64-linux-gnu/crti.o /usr/lib/gcc/x86_64-linux-gnu/4.8/crtbegin.o -L/usr/lib/gcc/x86_64-linux-gnu/4.8 -L/usr/lib/gcc/x86_64-linux-gnu/4.8/../../../x86_64-linux-gnu -L/usr/lib/gcc/x86_64-linux-gnu/4.8/../../../../lib -L/lib/x86_64-linux-gnu -L/lib/../lib -L/usr/lib/x86_64-linux-gnu -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-linux-gnu/4.8/../../.. CMakeFiles/cmTC_df918.dir/CMakeCCompilerABI.c.o -lgcc --as-needed -lgcc_s --no-as-needed -lc -lgcc --as-needed -lgcc_s --no-as-needed /usr/lib/gcc/x86_64-linux-gnu/4.8/crtend.o /usr/lib/gcc/x86_64-linux-gnu/4.8/../../../x86_64-linux-gnu/crtn.o
 make[1]: Leaving directory `/home/netra/pranjal/colorLines/build/CMakeFiles/CMakeTmp'
 
 
@@ -68,14 +68,14 @@ Parsed C implicit link information from above output:
   link line regex: [^( *|.*[/\])(ld|([^/\]+-)?ld|collect2)[^/\]*( |$)]
   ignore line: [Change Dir: /home/netra/pranjal/colorLines/build/CMakeFiles/CMakeTmp]
   ignore line: []
-  ignore line: [Run Build Command:"/usr/bin/make" "cmTC_284f1/fast"]
-  ignore line: [/usr/bin/make -f CMakeFiles/cmTC_284f1.dir/build.make CMakeFiles/cmTC_284f1.dir/build]
+  ignore line: [Run Build Command:"/usr/bin/make" "cmTC_df918/fast"]
+  ignore line: [/usr/bin/make -f CMakeFiles/cmTC_df918.dir/build.make CMakeFiles/cmTC_df918.dir/build]
   ignore line: [make[1]: Entering directory `/home/netra/pranjal/colorLines/build/CMakeFiles/CMakeTmp']
-  ignore line: [Building C object CMakeFiles/cmTC_284f1.dir/CMakeCCompilerABI.c.o]
-  ignore line: [/usr/bin/cc     -o CMakeFiles/cmTC_284f1.dir/CMakeCCompilerABI.c.o   -c /usr/local/share/cmake-3.5/Modules/CMakeCCompilerABI.c]
-  ignore line: [Linking C executable cmTC_284f1]
-  ignore line: [/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_284f1.dir/link.txt --verbose=1]
-  ignore line: [/usr/bin/cc      -v CMakeFiles/cmTC_284f1.dir/CMakeCCompilerABI.c.o  -o cmTC_284f1 -rdynamic  ]
+  ignore line: [Building C object CMakeFiles/cmTC_df918.dir/CMakeCCompilerABI.c.o]
+  ignore line: [/usr/bin/cc     -o CMakeFiles/cmTC_df918.dir/CMakeCCompilerABI.c.o   -c /usr/local/share/cmake-3.5/Modules/CMakeCCompilerABI.c]
+  ignore line: [Linking C executable cmTC_df918]
+  ignore line: [/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_df918.dir/link.txt --verbose=1]
+  ignore line: [/usr/bin/cc      -v CMakeFiles/cmTC_df918.dir/CMakeCCompilerABI.c.o  -o cmTC_df918 -rdynamic  ]
   ignore line: [Using built-in specs.]
   ignore line: [COLLECT_GCC=/usr/bin/cc]
   ignore line: [COLLECT_LTO_WRAPPER=/usr/lib/gcc/x86_64-linux-gnu/4.8/lto-wrapper]
@@ -85,8 +85,8 @@ Parsed C implicit link information from above output:
   ignore line: [gcc version 4.8.4 (Ubuntu 4.8.4-2ubuntu1~14.04.3) ]
   ignore line: [COMPILER_PATH=/usr/lib/gcc/x86_64-linux-gnu/4.8/:/usr/lib/gcc/x86_64-linux-gnu/4.8/:/usr/lib/gcc/x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/4.8/:/usr/lib/gcc/x86_64-linux-gnu/]
   ignore line: [LIBRARY_PATH=/usr/lib/gcc/x86_64-linux-gnu/4.8/:/usr/lib/gcc/x86_64-linux-gnu/4.8/../../../x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/4.8/../../../../lib/:/lib/x86_64-linux-gnu/:/lib/../lib/:/usr/lib/x86_64-linux-gnu/:/usr/lib/../lib/:/usr/lib/gcc/x86_64-linux-gnu/4.8/../../../:/lib/:/usr/lib/]
-  ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_284f1' '-rdynamic' '-mtune=generic' '-march=x86-64']
-  link line: [ /usr/lib/gcc/x86_64-linux-gnu/4.8/collect2 --sysroot=/ --build-id --eh-frame-hdr -m elf_x86_64 --hash-style=gnu --as-needed -export-dynamic -dynamic-linker /lib64/ld-linux-x86-64.so.2 -z relro -o cmTC_284f1 /usr/lib/gcc/x86_64-linux-gnu/4.8/../../../x86_64-linux-gnu/crt1.o /usr/lib/gcc/x86_64-linux-gnu/4.8/../../../x86_64-linux-gnu/crti.o /usr/lib/gcc/x86_64-linux-gnu/4.8/crtbegin.o -L/usr/lib/gcc/x86_64-linux-gnu/4.8 -L/usr/lib/gcc/x86_64-linux-gnu/4.8/../../../x86_64-linux-gnu -L/usr/lib/gcc/x86_64-linux-gnu/4.8/../../../../lib -L/lib/x86_64-linux-gnu -L/lib/../lib -L/usr/lib/x86_64-linux-gnu -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-linux-gnu/4.8/../../.. CMakeFiles/cmTC_284f1.dir/CMakeCCompilerABI.c.o -lgcc --as-needed -lgcc_s --no-as-needed -lc -lgcc --as-needed -lgcc_s --no-as-needed /usr/lib/gcc/x86_64-linux-gnu/4.8/crtend.o /usr/lib/gcc/x86_64-linux-gnu/4.8/../../../x86_64-linux-gnu/crtn.o]
+  ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_df918' '-rdynamic' '-mtune=generic' '-march=x86-64']
+  link line: [ /usr/lib/gcc/x86_64-linux-gnu/4.8/collect2 --sysroot=/ --build-id --eh-frame-hdr -m elf_x86_64 --hash-style=gnu --as-needed -export-dynamic -dynamic-linker /lib64/ld-linux-x86-64.so.2 -z relro -o cmTC_df918 /usr/lib/gcc/x86_64-linux-gnu/4.8/../../../x86_64-linux-gnu/crt1.o /usr/lib/gcc/x86_64-linux-gnu/4.8/../../../x86_64-linux-gnu/crti.o /usr/lib/gcc/x86_64-linux-gnu/4.8/crtbegin.o -L/usr/lib/gcc/x86_64-linux-gnu/4.8 -L/usr/lib/gcc/x86_64-linux-gnu/4.8/../../../x86_64-linux-gnu -L/usr/lib/gcc/x86_64-linux-gnu/4.8/../../../../lib -L/lib/x86_64-linux-gnu -L/lib/../lib -L/usr/lib/x86_64-linux-gnu -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-linux-gnu/4.8/../../.. CMakeFiles/cmTC_df918.dir/CMakeCCompilerABI.c.o -lgcc --as-needed -lgcc_s --no-as-needed -lc -lgcc --as-needed -lgcc_s --no-as-needed /usr/lib/gcc/x86_64-linux-gnu/4.8/crtend.o /usr/lib/gcc/x86_64-linux-gnu/4.8/../../../x86_64-linux-gnu/crtn.o]
     arg [/usr/lib/gcc/x86_64-linux-gnu/4.8/collect2] ==> ignore
     arg [--sysroot=/] ==> ignore
     arg [--build-id] ==> ignore
@@ -100,7 +100,7 @@ Parsed C implicit link information from above output:
     arg [/lib64/ld-linux-x86-64.so.2] ==> ignore
     arg [-zrelro] ==> ignore
     arg [-o] ==> ignore
-    arg [cmTC_284f1] ==> ignore
+    arg [cmTC_df918] ==> ignore
     arg [/usr/lib/gcc/x86_64-linux-gnu/4.8/../../../x86_64-linux-gnu/crt1.o] ==> ignore
     arg [/usr/lib/gcc/x86_64-linux-gnu/4.8/../../../x86_64-linux-gnu/crti.o] ==> ignore
     arg [/usr/lib/gcc/x86_64-linux-gnu/4.8/crtbegin.o] ==> ignore
@@ -112,7 +112,7 @@ Parsed C implicit link information from above output:
     arg [-L/usr/lib/x86_64-linux-gnu] ==> dir [/usr/lib/x86_64-linux-gnu]
     arg [-L/usr/lib/../lib] ==> dir [/usr/lib/../lib]
     arg [-L/usr/lib/gcc/x86_64-linux-gnu/4.8/../../..] ==> dir [/usr/lib/gcc/x86_64-linux-gnu/4.8/../../..]
-    arg [CMakeFiles/cmTC_284f1.dir/CMakeCCompilerABI.c.o] ==> ignore
+    arg [CMakeFiles/cmTC_df918.dir/CMakeCCompilerABI.c.o] ==> ignore
     arg [-lgcc] ==> lib [gcc]
     arg [--as-needed] ==> ignore
     arg [-lgcc_s] ==> lib [gcc_s]
@@ -146,14 +146,14 @@ Parsed C implicit link information from above output:
 Detecting C [-std=c11] compiler features compiled with the following output:
 Change Dir: /home/netra/pranjal/colorLines/build/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/make" "cmTC_63073/fast"
-/usr/bin/make -f CMakeFiles/cmTC_63073.dir/build.make CMakeFiles/cmTC_63073.dir/build
+Run Build Command:"/usr/bin/make" "cmTC_f4ed0/fast"
+/usr/bin/make -f CMakeFiles/cmTC_f4ed0.dir/build.make CMakeFiles/cmTC_f4ed0.dir/build
 make[1]: Entering directory `/home/netra/pranjal/colorLines/build/CMakeFiles/CMakeTmp'
-Building C object CMakeFiles/cmTC_63073.dir/feature_tests.c.o
-/usr/bin/cc    -std=c11 -o CMakeFiles/cmTC_63073.dir/feature_tests.c.o   -c /home/netra/pranjal/colorLines/build/CMakeFiles/feature_tests.c
-Linking C executable cmTC_63073
-/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_63073.dir/link.txt --verbose=1
-/usr/bin/cc       CMakeFiles/cmTC_63073.dir/feature_tests.c.o  -o cmTC_63073 -rdynamic 
+Building C object CMakeFiles/cmTC_f4ed0.dir/feature_tests.c.o
+/usr/bin/cc    -std=c11 -o CMakeFiles/cmTC_f4ed0.dir/feature_tests.c.o   -c /home/netra/pranjal/colorLines/build/CMakeFiles/feature_tests.c
+Linking C executable cmTC_f4ed0
+/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_f4ed0.dir/link.txt --verbose=1
+/usr/bin/cc       CMakeFiles/cmTC_f4ed0.dir/feature_tests.c.o  -o cmTC_f4ed0 -rdynamic 
 make[1]: Leaving directory `/home/netra/pranjal/colorLines/build/CMakeFiles/CMakeTmp'
 
 
@@ -166,14 +166,14 @@ make[1]: Leaving directory `/home/netra/pranjal/colorLines/build/CMakeFiles/CMak
 Detecting C [-std=c99] compiler features compiled with the following output:
 Change Dir: /home/netra/pranjal/colorLines/build/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/make" "cmTC_b2cce/fast"
-/usr/bin/make -f CMakeFiles/cmTC_b2cce.dir/build.make CMakeFiles/cmTC_b2cce.dir/build
+Run Build Command:"/usr/bin/make" "cmTC_10770/fast"
+/usr/bin/make -f CMakeFiles/cmTC_10770.dir/build.make CMakeFiles/cmTC_10770.dir/build
 make[1]: Entering directory `/home/netra/pranjal/colorLines/build/CMakeFiles/CMakeTmp'
-Building C object CMakeFiles/cmTC_b2cce.dir/feature_tests.c.o
-/usr/bin/cc    -std=c99 -o CMakeFiles/cmTC_b2cce.dir/feature_tests.c.o   -c /home/netra/pranjal/colorLines/build/CMakeFiles/feature_tests.c
-Linking C executable cmTC_b2cce
-/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_b2cce.dir/link.txt --verbose=1
-/usr/bin/cc       CMakeFiles/cmTC_b2cce.dir/feature_tests.c.o  -o cmTC_b2cce -rdynamic 
+Building C object CMakeFiles/cmTC_10770.dir/feature_tests.c.o
+/usr/bin/cc    -std=c99 -o CMakeFiles/cmTC_10770.dir/feature_tests.c.o   -c /home/netra/pranjal/colorLines/build/CMakeFiles/feature_tests.c
+Linking C executable cmTC_10770
+/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_10770.dir/link.txt --verbose=1
+/usr/bin/cc       CMakeFiles/cmTC_10770.dir/feature_tests.c.o  -o cmTC_10770 -rdynamic 
 make[1]: Leaving directory `/home/netra/pranjal/colorLines/build/CMakeFiles/CMakeTmp'
 
 
@@ -186,14 +186,14 @@ make[1]: Leaving directory `/home/netra/pranjal/colorLines/build/CMakeFiles/CMak
 Detecting C [-std=c90] compiler features compiled with the following output:
 Change Dir: /home/netra/pranjal/colorLines/build/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/make" "cmTC_19cb7/fast"
-/usr/bin/make -f CMakeFiles/cmTC_19cb7.dir/build.make CMakeFiles/cmTC_19cb7.dir/build
+Run Build Command:"/usr/bin/make" "cmTC_be239/fast"
+/usr/bin/make -f CMakeFiles/cmTC_be239.dir/build.make CMakeFiles/cmTC_be239.dir/build
 make[1]: Entering directory `/home/netra/pranjal/colorLines/build/CMakeFiles/CMakeTmp'
-Building C object CMakeFiles/cmTC_19cb7.dir/feature_tests.c.o
-/usr/bin/cc    -std=c90 -o CMakeFiles/cmTC_19cb7.dir/feature_tests.c.o   -c /home/netra/pranjal/colorLines/build/CMakeFiles/feature_tests.c
-Linking C executable cmTC_19cb7
-/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_19cb7.dir/link.txt --verbose=1
-/usr/bin/cc       CMakeFiles/cmTC_19cb7.dir/feature_tests.c.o  -o cmTC_19cb7 -rdynamic 
+Building C object CMakeFiles/cmTC_be239.dir/feature_tests.c.o
+/usr/bin/cc    -std=c90 -o CMakeFiles/cmTC_be239.dir/feature_tests.c.o   -c /home/netra/pranjal/colorLines/build/CMakeFiles/feature_tests.c
+Linking C executable cmTC_be239
+/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_be239.dir/link.txt --verbose=1
+/usr/bin/cc       CMakeFiles/cmTC_be239.dir/feature_tests.c.o  -o cmTC_be239 -rdynamic 
 make[1]: Leaving directory `/home/netra/pranjal/colorLines/build/CMakeFiles/CMakeTmp'
 
 
@@ -204,28 +204,28 @@ make[1]: Leaving directory `/home/netra/pranjal/colorLines/build/CMakeFiles/CMak
 Determining if the CXX compiler works passed with the following output:
 Change Dir: /home/netra/pranjal/colorLines/build/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/make" "cmTC_f0ffd/fast"
-/usr/bin/make -f CMakeFiles/cmTC_f0ffd.dir/build.make CMakeFiles/cmTC_f0ffd.dir/build
+Run Build Command:"/usr/bin/make" "cmTC_d770c/fast"
+/usr/bin/make -f CMakeFiles/cmTC_d770c.dir/build.make CMakeFiles/cmTC_d770c.dir/build
 make[1]: Entering directory `/home/netra/pranjal/colorLines/build/CMakeFiles/CMakeTmp'
-Building CXX object CMakeFiles/cmTC_f0ffd.dir/testCXXCompiler.cxx.o
-/usr/bin/c++      -o CMakeFiles/cmTC_f0ffd.dir/testCXXCompiler.cxx.o -c /home/netra/pranjal/colorLines/build/CMakeFiles/CMakeTmp/testCXXCompiler.cxx
-Linking CXX executable cmTC_f0ffd
-/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_f0ffd.dir/link.txt --verbose=1
-/usr/bin/c++        CMakeFiles/cmTC_f0ffd.dir/testCXXCompiler.cxx.o  -o cmTC_f0ffd -rdynamic 
+Building CXX object CMakeFiles/cmTC_d770c.dir/testCXXCompiler.cxx.o
+/usr/bin/c++      -o CMakeFiles/cmTC_d770c.dir/testCXXCompiler.cxx.o -c /home/netra/pranjal/colorLines/build/CMakeFiles/CMakeTmp/testCXXCompiler.cxx
+Linking CXX executable cmTC_d770c
+/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_d770c.dir/link.txt --verbose=1
+/usr/bin/c++        CMakeFiles/cmTC_d770c.dir/testCXXCompiler.cxx.o  -o cmTC_d770c -rdynamic 
 make[1]: Leaving directory `/home/netra/pranjal/colorLines/build/CMakeFiles/CMakeTmp'
 
 
 Detecting CXX compiler ABI info compiled with the following output:
 Change Dir: /home/netra/pranjal/colorLines/build/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/make" "cmTC_47cb1/fast"
-/usr/bin/make -f CMakeFiles/cmTC_47cb1.dir/build.make CMakeFiles/cmTC_47cb1.dir/build
+Run Build Command:"/usr/bin/make" "cmTC_4acda/fast"
+/usr/bin/make -f CMakeFiles/cmTC_4acda.dir/build.make CMakeFiles/cmTC_4acda.dir/build
 make[1]: Entering directory `/home/netra/pranjal/colorLines/build/CMakeFiles/CMakeTmp'
-Building CXX object CMakeFiles/cmTC_47cb1.dir/CMakeCXXCompilerABI.cpp.o
-/usr/bin/c++      -o CMakeFiles/cmTC_47cb1.dir/CMakeCXXCompilerABI.cpp.o -c /usr/local/share/cmake-3.5/Modules/CMakeCXXCompilerABI.cpp
-Linking CXX executable cmTC_47cb1
-/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_47cb1.dir/link.txt --verbose=1
-/usr/bin/c++       -v CMakeFiles/cmTC_47cb1.dir/CMakeCXXCompilerABI.cpp.o  -o cmTC_47cb1 -rdynamic  
+Building CXX object CMakeFiles/cmTC_4acda.dir/CMakeCXXCompilerABI.cpp.o
+/usr/bin/c++      -o CMakeFiles/cmTC_4acda.dir/CMakeCXXCompilerABI.cpp.o -c /usr/local/share/cmake-3.5/Modules/CMakeCXXCompilerABI.cpp
+Linking CXX executable cmTC_4acda
+/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_4acda.dir/link.txt --verbose=1
+/usr/bin/c++       -v CMakeFiles/cmTC_4acda.dir/CMakeCXXCompilerABI.cpp.o  -o cmTC_4acda -rdynamic  
 Using built-in specs.
 COLLECT_GCC=/usr/bin/c++
 COLLECT_LTO_WRAPPER=/usr/lib/gcc/x86_64-linux-gnu/4.8/lto-wrapper
@@ -235,8 +235,8 @@ Thread model: posix
 gcc version 4.8.4 (Ubuntu 4.8.4-2ubuntu1~14.04.3) 
 COMPILER_PATH=/usr/lib/gcc/x86_64-linux-gnu/4.8/:/usr/lib/gcc/x86_64-linux-gnu/4.8/:/usr/lib/gcc/x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/4.8/:/usr/lib/gcc/x86_64-linux-gnu/
 LIBRARY_PATH=/usr/lib/gcc/x86_64-linux-gnu/4.8/:/usr/lib/gcc/x86_64-linux-gnu/4.8/../../../x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/4.8/../../../../lib/:/lib/x86_64-linux-gnu/:/lib/../lib/:/usr/lib/x86_64-linux-gnu/:/usr/lib/../lib/:/usr/lib/gcc/x86_64-linux-gnu/4.8/../../../:/lib/:/usr/lib/
-COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_47cb1' '-rdynamic' '-shared-libgcc' '-mtune=generic' '-march=x86-64'
- /usr/lib/gcc/x86_64-linux-gnu/4.8/collect2 --sysroot=/ --build-id --eh-frame-hdr -m elf_x86_64 --hash-style=gnu --as-needed -export-dynamic -dynamic-linker /lib64/ld-linux-x86-64.so.2 -z relro -o cmTC_47cb1 /usr/lib/gcc/x86_64-linux-gnu/4.8/../../../x86_64-linux-gnu/crt1.o /usr/lib/gcc/x86_64-linux-gnu/4.8/../../../x86_64-linux-gnu/crti.o /usr/lib/gcc/x86_64-linux-gnu/4.8/crtbegin.o -L/usr/lib/gcc/x86_64-linux-gnu/4.8 -L/usr/lib/gcc/x86_64-linux-gnu/4.8/../../../x86_64-linux-gnu -L/usr/lib/gcc/x86_64-linux-gnu/4.8/../../../../lib -L/lib/x86_64-linux-gnu -L/lib/../lib -L/usr/lib/x86_64-linux-gnu -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-linux-gnu/4.8/../../.. CMakeFiles/cmTC_47cb1.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc /usr/lib/gcc/x86_64-linux-gnu/4.8/crtend.o /usr/lib/gcc/x86_64-linux-gnu/4.8/../../../x86_64-linux-gnu/crtn.o
+COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_4acda' '-rdynamic' '-shared-libgcc' '-mtune=generic' '-march=x86-64'
+ /usr/lib/gcc/x86_64-linux-gnu/4.8/collect2 --sysroot=/ --build-id --eh-frame-hdr -m elf_x86_64 --hash-style=gnu --as-needed -export-dynamic -dynamic-linker /lib64/ld-linux-x86-64.so.2 -z relro -o cmTC_4acda /usr/lib/gcc/x86_64-linux-gnu/4.8/../../../x86_64-linux-gnu/crt1.o /usr/lib/gcc/x86_64-linux-gnu/4.8/../../../x86_64-linux-gnu/crti.o /usr/lib/gcc/x86_64-linux-gnu/4.8/crtbegin.o -L/usr/lib/gcc/x86_64-linux-gnu/4.8 -L/usr/lib/gcc/x86_64-linux-gnu/4.8/../../../x86_64-linux-gnu -L/usr/lib/gcc/x86_64-linux-gnu/4.8/../../../../lib -L/lib/x86_64-linux-gnu -L/lib/../lib -L/usr/lib/x86_64-linux-gnu -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-linux-gnu/4.8/../../.. CMakeFiles/cmTC_4acda.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc /usr/lib/gcc/x86_64-linux-gnu/4.8/crtend.o /usr/lib/gcc/x86_64-linux-gnu/4.8/../../../x86_64-linux-gnu/crtn.o
 make[1]: Leaving directory `/home/netra/pranjal/colorLines/build/CMakeFiles/CMakeTmp'
 
 
@@ -244,14 +244,14 @@ Parsed CXX implicit link information from above output:
   link line regex: [^( *|.*[/\])(ld|([^/\]+-)?ld|collect2)[^/\]*( |$)]
   ignore line: [Change Dir: /home/netra/pranjal/colorLines/build/CMakeFiles/CMakeTmp]
   ignore line: []
-  ignore line: [Run Build Command:"/usr/bin/make" "cmTC_47cb1/fast"]
-  ignore line: [/usr/bin/make -f CMakeFiles/cmTC_47cb1.dir/build.make CMakeFiles/cmTC_47cb1.dir/build]
+  ignore line: [Run Build Command:"/usr/bin/make" "cmTC_4acda/fast"]
+  ignore line: [/usr/bin/make -f CMakeFiles/cmTC_4acda.dir/build.make CMakeFiles/cmTC_4acda.dir/build]
   ignore line: [make[1]: Entering directory `/home/netra/pranjal/colorLines/build/CMakeFiles/CMakeTmp']
-  ignore line: [Building CXX object CMakeFiles/cmTC_47cb1.dir/CMakeCXXCompilerABI.cpp.o]
-  ignore line: [/usr/bin/c++      -o CMakeFiles/cmTC_47cb1.dir/CMakeCXXCompilerABI.cpp.o -c /usr/local/share/cmake-3.5/Modules/CMakeCXXCompilerABI.cpp]
-  ignore line: [Linking CXX executable cmTC_47cb1]
-  ignore line: [/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_47cb1.dir/link.txt --verbose=1]
-  ignore line: [/usr/bin/c++       -v CMakeFiles/cmTC_47cb1.dir/CMakeCXXCompilerABI.cpp.o  -o cmTC_47cb1 -rdynamic  ]
+  ignore line: [Building CXX object CMakeFiles/cmTC_4acda.dir/CMakeCXXCompilerABI.cpp.o]
+  ignore line: [/usr/bin/c++      -o CMakeFiles/cmTC_4acda.dir/CMakeCXXCompilerABI.cpp.o -c /usr/local/share/cmake-3.5/Modules/CMakeCXXCompilerABI.cpp]
+  ignore line: [Linking CXX executable cmTC_4acda]
+  ignore line: [/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_4acda.dir/link.txt --verbose=1]
+  ignore line: [/usr/bin/c++       -v CMakeFiles/cmTC_4acda.dir/CMakeCXXCompilerABI.cpp.o  -o cmTC_4acda -rdynamic  ]
   ignore line: [Using built-in specs.]
   ignore line: [COLLECT_GCC=/usr/bin/c++]
   ignore line: [COLLECT_LTO_WRAPPER=/usr/lib/gcc/x86_64-linux-gnu/4.8/lto-wrapper]
@@ -261,8 +261,8 @@ Parsed CXX implicit link information from above output:
   ignore line: [gcc version 4.8.4 (Ubuntu 4.8.4-2ubuntu1~14.04.3) ]
   ignore line: [COMPILER_PATH=/usr/lib/gcc/x86_64-linux-gnu/4.8/:/usr/lib/gcc/x86_64-linux-gnu/4.8/:/usr/lib/gcc/x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/4.8/:/usr/lib/gcc/x86_64-linux-gnu/]
   ignore line: [LIBRARY_PATH=/usr/lib/gcc/x86_64-linux-gnu/4.8/:/usr/lib/gcc/x86_64-linux-gnu/4.8/../../../x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/4.8/../../../../lib/:/lib/x86_64-linux-gnu/:/lib/../lib/:/usr/lib/x86_64-linux-gnu/:/usr/lib/../lib/:/usr/lib/gcc/x86_64-linux-gnu/4.8/../../../:/lib/:/usr/lib/]
-  ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_47cb1' '-rdynamic' '-shared-libgcc' '-mtune=generic' '-march=x86-64']
-  link line: [ /usr/lib/gcc/x86_64-linux-gnu/4.8/collect2 --sysroot=/ --build-id --eh-frame-hdr -m elf_x86_64 --hash-style=gnu --as-needed -export-dynamic -dynamic-linker /lib64/ld-linux-x86-64.so.2 -z relro -o cmTC_47cb1 /usr/lib/gcc/x86_64-linux-gnu/4.8/../../../x86_64-linux-gnu/crt1.o /usr/lib/gcc/x86_64-linux-gnu/4.8/../../../x86_64-linux-gnu/crti.o /usr/lib/gcc/x86_64-linux-gnu/4.8/crtbegin.o -L/usr/lib/gcc/x86_64-linux-gnu/4.8 -L/usr/lib/gcc/x86_64-linux-gnu/4.8/../../../x86_64-linux-gnu -L/usr/lib/gcc/x86_64-linux-gnu/4.8/../../../../lib -L/lib/x86_64-linux-gnu -L/lib/../lib -L/usr/lib/x86_64-linux-gnu -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-linux-gnu/4.8/../../.. CMakeFiles/cmTC_47cb1.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc /usr/lib/gcc/x86_64-linux-gnu/4.8/crtend.o /usr/lib/gcc/x86_64-linux-gnu/4.8/../../../x86_64-linux-gnu/crtn.o]
+  ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_4acda' '-rdynamic' '-shared-libgcc' '-mtune=generic' '-march=x86-64']
+  link line: [ /usr/lib/gcc/x86_64-linux-gnu/4.8/collect2 --sysroot=/ --build-id --eh-frame-hdr -m elf_x86_64 --hash-style=gnu --as-needed -export-dynamic -dynamic-linker /lib64/ld-linux-x86-64.so.2 -z relro -o cmTC_4acda /usr/lib/gcc/x86_64-linux-gnu/4.8/../../../x86_64-linux-gnu/crt1.o /usr/lib/gcc/x86_64-linux-gnu/4.8/../../../x86_64-linux-gnu/crti.o /usr/lib/gcc/x86_64-linux-gnu/4.8/crtbegin.o -L/usr/lib/gcc/x86_64-linux-gnu/4.8 -L/usr/lib/gcc/x86_64-linux-gnu/4.8/../../../x86_64-linux-gnu -L/usr/lib/gcc/x86_64-linux-gnu/4.8/../../../../lib -L/lib/x86_64-linux-gnu -L/lib/../lib -L/usr/lib/x86_64-linux-gnu -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-linux-gnu/4.8/../../.. CMakeFiles/cmTC_4acda.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc /usr/lib/gcc/x86_64-linux-gnu/4.8/crtend.o /usr/lib/gcc/x86_64-linux-gnu/4.8/../../../x86_64-linux-gnu/crtn.o]
     arg [/usr/lib/gcc/x86_64-linux-gnu/4.8/collect2] ==> ignore
     arg [--sysroot=/] ==> ignore
     arg [--build-id] ==> ignore
@@ -276,7 +276,7 @@ Parsed CXX implicit link information from above output:
     arg [/lib64/ld-linux-x86-64.so.2] ==> ignore
     arg [-zrelro] ==> ignore
     arg [-o] ==> ignore
-    arg [cmTC_47cb1] ==> ignore
+    arg [cmTC_4acda] ==> ignore
     arg [/usr/lib/gcc/x86_64-linux-gnu/4.8/../../../x86_64-linux-gnu/crt1.o] ==> ignore
     arg [/usr/lib/gcc/x86_64-linux-gnu/4.8/../../../x86_64-linux-gnu/crti.o] ==> ignore
     arg [/usr/lib/gcc/x86_64-linux-gnu/4.8/crtbegin.o] ==> ignore
@@ -288,7 +288,7 @@ Parsed CXX implicit link information from above output:
     arg [-L/usr/lib/x86_64-linux-gnu] ==> dir [/usr/lib/x86_64-linux-gnu]
     arg [-L/usr/lib/../lib] ==> dir [/usr/lib/../lib]
     arg [-L/usr/lib/gcc/x86_64-linux-gnu/4.8/../../..] ==> dir [/usr/lib/gcc/x86_64-linux-gnu/4.8/../../..]
-    arg [CMakeFiles/cmTC_47cb1.dir/CMakeCXXCompilerABI.cpp.o] ==> ignore
+    arg [CMakeFiles/cmTC_4acda.dir/CMakeCXXCompilerABI.cpp.o] ==> ignore
     arg [-lstdc++] ==> lib [stdc++]
     arg [-lm] ==> lib [m]
     arg [-lgcc_s] ==> lib [gcc_s]
@@ -320,14 +320,14 @@ Parsed CXX implicit link information from above output:
 Detecting CXX [-std=c++1y] compiler features compiled with the following output:
 Change Dir: /home/netra/pranjal/colorLines/build/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/make" "cmTC_1bc1d/fast"
-/usr/bin/make -f CMakeFiles/cmTC_1bc1d.dir/build.make CMakeFiles/cmTC_1bc1d.dir/build
+Run Build Command:"/usr/bin/make" "cmTC_023e0/fast"
+/usr/bin/make -f CMakeFiles/cmTC_023e0.dir/build.make CMakeFiles/cmTC_023e0.dir/build
 make[1]: Entering directory `/home/netra/pranjal/colorLines/build/CMakeFiles/CMakeTmp'
-Building CXX object CMakeFiles/cmTC_1bc1d.dir/feature_tests.cxx.o
-/usr/bin/c++     -std=c++1y -o CMakeFiles/cmTC_1bc1d.dir/feature_tests.cxx.o -c /home/netra/pranjal/colorLines/build/CMakeFiles/feature_tests.cxx
-Linking CXX executable cmTC_1bc1d
-/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_1bc1d.dir/link.txt --verbose=1
-/usr/bin/c++        CMakeFiles/cmTC_1bc1d.dir/feature_tests.cxx.o  -o cmTC_1bc1d -rdynamic 
+Building CXX object CMakeFiles/cmTC_023e0.dir/feature_tests.cxx.o
+/usr/bin/c++     -std=c++1y -o CMakeFiles/cmTC_023e0.dir/feature_tests.cxx.o -c /home/netra/pranjal/colorLines/build/CMakeFiles/feature_tests.cxx
+Linking CXX executable cmTC_023e0
+/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_023e0.dir/link.txt --verbose=1
+/usr/bin/c++        CMakeFiles/cmTC_023e0.dir/feature_tests.cxx.o  -o cmTC_023e0 -rdynamic 
 make[1]: Leaving directory `/home/netra/pranjal/colorLines/build/CMakeFiles/CMakeTmp'
 
 
@@ -393,14 +393,14 @@ make[1]: Leaving directory `/home/netra/pranjal/colorLines/build/CMakeFiles/CMak
 Detecting CXX [-std=c++11] compiler features compiled with the following output:
 Change Dir: /home/netra/pranjal/colorLines/build/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/make" "cmTC_a50eb/fast"
-/usr/bin/make -f CMakeFiles/cmTC_a50eb.dir/build.make CMakeFiles/cmTC_a50eb.dir/build
+Run Build Command:"/usr/bin/make" "cmTC_bafca/fast"
+/usr/bin/make -f CMakeFiles/cmTC_bafca.dir/build.make CMakeFiles/cmTC_bafca.dir/build
 make[1]: Entering directory `/home/netra/pranjal/colorLines/build/CMakeFiles/CMakeTmp'
-Building CXX object CMakeFiles/cmTC_a50eb.dir/feature_tests.cxx.o
-/usr/bin/c++     -std=c++11 -o CMakeFiles/cmTC_a50eb.dir/feature_tests.cxx.o -c /home/netra/pranjal/colorLines/build/CMakeFiles/feature_tests.cxx
-Linking CXX executable cmTC_a50eb
-/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_a50eb.dir/link.txt --verbose=1
-/usr/bin/c++        CMakeFiles/cmTC_a50eb.dir/feature_tests.cxx.o  -o cmTC_a50eb -rdynamic 
+Building CXX object CMakeFiles/cmTC_bafca.dir/feature_tests.cxx.o
+/usr/bin/c++     -std=c++11 -o CMakeFiles/cmTC_bafca.dir/feature_tests.cxx.o -c /home/netra/pranjal/colorLines/build/CMakeFiles/feature_tests.cxx
+Linking CXX executable cmTC_bafca
+/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_bafca.dir/link.txt --verbose=1
+/usr/bin/c++        CMakeFiles/cmTC_bafca.dir/feature_tests.cxx.o  -o cmTC_bafca -rdynamic 
 make[1]: Leaving directory `/home/netra/pranjal/colorLines/build/CMakeFiles/CMakeTmp'
 
 
@@ -466,14 +466,14 @@ make[1]: Leaving directory `/home/netra/pranjal/colorLines/build/CMakeFiles/CMak
 Detecting CXX [-std=c++98] compiler features compiled with the following output:
 Change Dir: /home/netra/pranjal/colorLines/build/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/make" "cmTC_09893/fast"
-/usr/bin/make -f CMakeFiles/cmTC_09893.dir/build.make CMakeFiles/cmTC_09893.dir/build
+Run Build Command:"/usr/bin/make" "cmTC_b498a/fast"
+/usr/bin/make -f CMakeFiles/cmTC_b498a.dir/build.make CMakeFiles/cmTC_b498a.dir/build
 make[1]: Entering directory `/home/netra/pranjal/colorLines/build/CMakeFiles/CMakeTmp'
-Building CXX object CMakeFiles/cmTC_09893.dir/feature_tests.cxx.o
-/usr/bin/c++     -std=c++98 -o CMakeFiles/cmTC_09893.dir/feature_tests.cxx.o -c /home/netra/pranjal/colorLines/build/CMakeFiles/feature_tests.cxx
-Linking CXX executable cmTC_09893
-/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_09893.dir/link.txt --verbose=1
-/usr/bin/c++        CMakeFiles/cmTC_09893.dir/feature_tests.cxx.o  -o cmTC_09893 -rdynamic 
+Building CXX object CMakeFiles/cmTC_b498a.dir/feature_tests.cxx.o
+/usr/bin/c++     -std=c++98 -o CMakeFiles/cmTC_b498a.dir/feature_tests.cxx.o -c /home/netra/pranjal/colorLines/build/CMakeFiles/feature_tests.cxx
+Linking CXX executable cmTC_b498a
+/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_b498a.dir/link.txt --verbose=1
+/usr/bin/c++        CMakeFiles/cmTC_b498a.dir/feature_tests.cxx.o  -o cmTC_b498a -rdynamic 
 make[1]: Leaving directory `/home/netra/pranjal/colorLines/build/CMakeFiles/CMakeTmp'
 
 
@@ -537,28 +537,28 @@ make[1]: Leaving directory `/home/netra/pranjal/colorLines/build/CMakeFiles/CMak
 Determining if the include file pthread.h exists passed with the following output:
 Change Dir: /home/netra/pranjal/colorLines/build/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/make" "cmTC_9ad19/fast"
-/usr/bin/make -f CMakeFiles/cmTC_9ad19.dir/build.make CMakeFiles/cmTC_9ad19.dir/build
+Run Build Command:"/usr/bin/make" "cmTC_1dde7/fast"
+/usr/bin/make -f CMakeFiles/cmTC_1dde7.dir/build.make CMakeFiles/cmTC_1dde7.dir/build
 make[1]: Entering directory `/home/netra/pranjal/colorLines/build/CMakeFiles/CMakeTmp'
-Building C object CMakeFiles/cmTC_9ad19.dir/CheckIncludeFile.c.o
-/usr/bin/cc    -fPIC    -o CMakeFiles/cmTC_9ad19.dir/CheckIncludeFile.c.o   -c /home/netra/pranjal/colorLines/build/CMakeFiles/CMakeTmp/CheckIncludeFile.c
-Linking C executable cmTC_9ad19
-/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_9ad19.dir/link.txt --verbose=1
-/usr/bin/cc  -fPIC     CMakeFiles/cmTC_9ad19.dir/CheckIncludeFile.c.o  -o cmTC_9ad19 -rdynamic 
+Building C object CMakeFiles/cmTC_1dde7.dir/CheckIncludeFile.c.o
+/usr/bin/cc    -fPIC    -o CMakeFiles/cmTC_1dde7.dir/CheckIncludeFile.c.o   -c /home/netra/pranjal/colorLines/build/CMakeFiles/CMakeTmp/CheckIncludeFile.c
+Linking C executable cmTC_1dde7
+/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_1dde7.dir/link.txt --verbose=1
+/usr/bin/cc  -fPIC     CMakeFiles/cmTC_1dde7.dir/CheckIncludeFile.c.o  -o cmTC_1dde7 -rdynamic 
 make[1]: Leaving directory `/home/netra/pranjal/colorLines/build/CMakeFiles/CMakeTmp'
 
 
 Determining if the function pthread_create exists in the pthread passed with the following output:
 Change Dir: /home/netra/pranjal/colorLines/build/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/make" "cmTC_f621d/fast"
-/usr/bin/make -f CMakeFiles/cmTC_f621d.dir/build.make CMakeFiles/cmTC_f621d.dir/build
+Run Build Command:"/usr/bin/make" "cmTC_ef890/fast"
+/usr/bin/make -f CMakeFiles/cmTC_ef890.dir/build.make CMakeFiles/cmTC_ef890.dir/build
 make[1]: Entering directory `/home/netra/pranjal/colorLines/build/CMakeFiles/CMakeTmp'
-Building C object CMakeFiles/cmTC_f621d.dir/CheckFunctionExists.c.o
-/usr/bin/cc    -fPIC -DCHECK_FUNCTION_EXISTS=pthread_create   -o CMakeFiles/cmTC_f621d.dir/CheckFunctionExists.c.o   -c /usr/local/share/cmake-3.5/Modules/CheckFunctionExists.c
-Linking C executable cmTC_f621d
-/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_f621d.dir/link.txt --verbose=1
-/usr/bin/cc  -fPIC -DCHECK_FUNCTION_EXISTS=pthread_create    CMakeFiles/cmTC_f621d.dir/CheckFunctionExists.c.o  -o cmTC_f621d -rdynamic -lpthread 
+Building C object CMakeFiles/cmTC_ef890.dir/CheckFunctionExists.c.o
+/usr/bin/cc    -fPIC -DCHECK_FUNCTION_EXISTS=pthread_create   -o CMakeFiles/cmTC_ef890.dir/CheckFunctionExists.c.o   -c /usr/local/share/cmake-3.5/Modules/CheckFunctionExists.c
+Linking C executable cmTC_ef890
+/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_ef890.dir/link.txt --verbose=1
+/usr/bin/cc  -fPIC -DCHECK_FUNCTION_EXISTS=pthread_create    CMakeFiles/cmTC_ef890.dir/CheckFunctionExists.c.o  -o cmTC_ef890 -rdynamic -lpthread 
 make[1]: Leaving directory `/home/netra/pranjal/colorLines/build/CMakeFiles/CMakeTmp'
 
 
