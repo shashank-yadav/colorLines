@@ -231,7 +231,8 @@ void colorLines::init(cv::Mat img,  const int r)
 {
 	this->radius = r;
 	const int num_bins = (450/r) + 1;
-	std::vector<Point> imagePts[num_bins];
+	std::vector<vector<Point>> imagePts;
+	imagePts.resize(num_bins);
 
 
 	// Mat hist = Mat::zeros(360,360,CV_32FC1);
@@ -419,33 +420,31 @@ void colorLines::init(cv::Mat img,  const int r)
 
 		for (int j = 0; j < ret.rows; ++j){
 
-			if(j == 1){
-				break;
-			}
-			std::cout << "start loop " << i << " " << j << std::endl;
+			// std::cout << "start loop " << i << " " << j << std::endl;
 			Vec3d pixel1= img.at<Vec3b>(j,i);
 			Point3d pixel= (Point3d)pixel1;
-			std::cout << "start get probability" << std::endl;
+			// std::cout << "start get probability" << std::endl;
 			std::vector<float> probs = get_probability(pixel);
 			// std::vector<float> probs;
 			// probs.resize(10);
-			std::cout << "end get probability" << std::endl;
+			// std::cout << "end get probability" << std::endl;
 			int max_id = 0;
 			float max_prob = probs[0];
-			std::cout << probs[0] << std::endl;
+			// std::cout << probs[0] << std::endl;
 			for (int k = 0; k < probs.size(); ++k)
 			{
-				std::cout << probs[k] << " " << k << " " << probs.size() << std::endl;
+				// std::cout << probs[k] << " " << k << " " << probs.size() << std::endl;
 				if(probs[k] > max_prob){
 					max_id = k;
 					max_prob = probs[k];
 				}
 			}
-			std::cout << "end loop " << i << " " << j << std::endl;
-			// ret.at<uchar>(j,i) = max_id + 1;
+			// std::cerr << max_id << std::endl;
+			// std::cout << "end loop " << i << " " << j << std::endl;
+			ret.at<uchar>(j,i) = max_id + 1;
 		}
 
-		std::cout << " temp " << std::endl;
+		// std::cout << " temp " << std::endl;
 	}
 	cv::Mat retMatScaled;
 	ret.convertTo(retMatScaled, CV_8UC1, 255, 0);
@@ -476,25 +475,21 @@ inline float gaussian_probability(float x, float y, float mu_x, float mu_y, floa
 }
 
 std::vector<float> colorLines::get_probability(cv::Point3d input){
-	std::cout << "inside get_probability" << std::endl;
 	int r = radius;
 	float magnitude = norm(input);
 	int bin_id = magnitude/r + 1;
 	const int num_bins = (450/r) + 1;
 	std::vector<float> ret;
-	ret.resize(num_bins);
+	ret.resize(lines_cleanedup.size());
 	Point3d eps =  Point3d(0.01,0.01,0.01);
-	// std::cout << num_bins << " " << lines_cleanedup.size() << std::endl;
 	for (int i = 0; i < lines_cleanedup.size(); ++i){
 		ret[i] = 0.0;
-		std::cout << i << " " << lines_cleanedup[i].size() << std::endl;
 		assert(num_bins == lines_cleanedup[i].size());
 		if(lines_cleanedup[i].size() > 0){
 			// for (int j = 0; j < num_bins; ++j)
 			// {
 			assert(bin_id < num_bins);
 			int j = bin_id;//just for fun
-			std::cout << i << " " << j << " " << num_bins << " " << lines_cleanedup[i][j].size() << std::endl;
 			if(lines_cleanedup[i][j].size() > 0){
 				// float max_prob = 0.0;
 				for (int k = 0; k < lines_cleanedup[i][j].size(); ++k){
@@ -513,7 +508,6 @@ std::vector<float> colorLines::get_probability(cv::Point3d input){
 					// }
 				}
 			}
-			std::cout << i << " " << j << " " << num_bins << " " << lines_cleanedup[i][j].size() << std::endl;
 			// }
 		}
 	}
