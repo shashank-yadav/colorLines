@@ -40,7 +40,8 @@ with open('../build/output.txt') as f:
 			xp.append(float(f.readline()))
 			yp.append(float(f.readline()))
 			zp.append(float(f.readline()))
-		if(number_of_points > 40):
+		if(number_of_points > 10):
+			print i
 			ax.scatter(xp, yp, zp, c='r', marker='o', color=colors[counter])
 			counter += 1
 

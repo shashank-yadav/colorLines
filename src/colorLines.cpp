@@ -165,7 +165,7 @@ int get_nearest_index(cv::Point3f pt, std::vector<cv::Point3f> &gaussians){
 void formLinesLeft(std::vector< std::vector<cv::Point3f> > &histogram_slices_gaussians , std::vector< std::vector<cv::Point2f> > &histogram_slices_maximas , std::vector<cv::Mat> &histogram_slices , const int search_size, std::vector<colorLine> &lines, int number_lines, int start_point, std::vector<int> affiliated_color_line, const int r){
 	//do something
 	assert(histogram_slices_maximas[start_point].size() == affiliated_color_line.size());
-	std::cout << "left " << start_point << std::endl;
+	// std::cout << "left " << start_point << std::endl;
 	if(start_point == 0){
 		return;
 	}
@@ -197,7 +197,7 @@ void formLinesRight(std::vector< std::vector<cv::Point3f> > &histogram_slices_ga
 	assert(histogram_slices_maximas[start_point].size() == affiliated_color_line.size());
 	const int num_bins = (450/r) + 1;
 	assert(num_bins == histogram_slices.size());
-	std::cout << "right " << start_point << std::endl;
+	// std::cout << "right " << start_point << std::endl;
 	if(start_point == num_bins - 1){
 		return;
 	}
@@ -283,7 +283,7 @@ void colorLines::init(cv::Mat img,  const int r)
 
 	for (int i = 0; i < num_bins; ++i)
 	{
-		cout<<imagePts[i].size()<<endl;
+		// cout<<imagePts[i].size()<<endl;
 		Mat hist = Mat::zeros(360,360,CV_32FC1);
 
 		for (int j = 0; j < imagePts[i].size(); ++j){
@@ -295,7 +295,7 @@ void colorLines::init(cv::Mat img,  const int r)
 		cv::Mat dst = low_pass(hist);
 		Mat ucharMatScaled;
 		dst.convertTo(ucharMatScaled, CV_8UC1, 255, 0); 
-		imwrite("dstScaled"+to_string(i)+".png",ucharMatScaled);
+		// imwrite("dstScaled"+to_string(i)+".png",ucharMatScaled);
 		// imwrite("dst"+to_string(i)+".png",dst);
 
 		std::vector<cv::Point2f> maximas = local_maxima(dst);
@@ -306,8 +306,8 @@ void colorLines::init(cv::Mat img,  const int r)
 		}
 
 
-		imwrite("temp"+to_string(i)+".png",temp);
-		cout<<"Here "<< maximas.size() <<endl;
+		// imwrite("temp"+to_string(i)+".png",temp);
+		// cout<<"Here "<< maximas.size() <<endl;
 
 
 		std::vector<cv::Point2f> maximas_combined = combineMaximas(maximas , dst ,5);
@@ -318,12 +318,12 @@ void colorLines::init(cv::Mat img,  const int r)
 
 
 		if(i < 10){
-			imwrite("tempC0"+to_string(i)+".png",temp);
+			// imwrite("tempC0"+to_string(i)+".png",temp);
 		}
 		else{
-			imwrite("tempC"+to_string(i)+".png",temp);
+			// imwrite("tempC"+to_string(i)+".png",temp);
 		}
-		cout<<"HereC "<< maximas_combined.size() <<endl;
+		// cout<<"HereC "<< maximas_combined.size() <<endl;
 
 
 		// assert(maximas.size() > 0);
@@ -348,7 +348,7 @@ void colorLines::init(cv::Mat img,  const int r)
 			histogram_slices_gaussians.push_back(gaussians);
 			histogram_slices_maximas.push_back(stay_put);
 			result.convertTo(ucharMatScaled, CV_8UC1, 255, 0); 
-			imwrite("resultScaled"+to_string(i)+".png",ucharMatScaled);
+			// imwrite("resultScaled"+to_string(i)+".png",ucharMatScaled);
 
 		}
 		else{
@@ -404,51 +404,74 @@ void colorLines::init(cv::Mat img,  const int r)
 	formLinesRight(histogram_slices_gaussians, histogram_slices_maximas , histogram_slices , 5, lines, max_lines, max_lines_index, affiliated_color_line, r);
 	
 
-	std::cerr << lines.size() << std::endl; 
+	// std::cerr << lines.size() << std::endl;
+	int max_size_index = 0;
+	int max_size = lines[0].size();
+	for (int i = 0; i < lines.size(); ++i){
+		// cleanup(lines[i]);
+		// std::cerr << lines[i].size() << std::endl;
+		// std::cout << lines[i].size() << std::endl;
+		if(max_size < lines[i].size()){
+			max_size = lines[i].size();
+			max_size_index = i;
+		}
+		// for (int j = 0; j < lines[i].size(); ++j)
+		// {
+		// 	std::cerr << lines[i][j].r << "\n" << lines[i][j].g << "\n" << lines[i][j].b << std::endl;
+		// }
+	}
+
+	std::vector<colorLine> temp;
+	temp.push_back(lines[max_size_index]);
+	lines = temp;
+
+	std::cerr << lines.size() << std::endl;
 	for (int i = 0; i < lines.size(); ++i){
 		cleanup(lines[i]);
 		std::cerr << lines[i].size() << std::endl;
-		std::cout << lines[i].size() << std::endl;
+		// std::cout << lines[i].size() << std::endl;
 		for (int j = 0; j < lines[i].size(); ++j)
 		{
 			std::cerr << lines[i][j].r << "\n" << lines[i][j].g << "\n" << lines[i][j].b << std::endl;
 		}
 	}
 
-	Mat ret = Mat::zeros(img.size(),CV_8UC1);
-	for (int i = 0; i < ret.cols; ++i){
+	// std::cout << lines.size() << " " << lines_cleanedup.size() << std::endl;
 
-		for (int j = 0; j < ret.rows; ++j){
+	// Mat ret = Mat::zeros(img.size(),CV_8UC1);
+	// for (int i = 0; i < ret.cols; ++i){
 
-			// std::cout << "start loop " << i << " " << j << std::endl;
-			Vec3d pixel1= img.at<Vec3b>(j,i);
-			Point3d pixel= (Point3d)pixel1;
-			// std::cout << "start get probability" << std::endl;
-			std::vector<float> probs = get_probability(pixel);
-			// std::vector<float> probs;
-			// probs.resize(10);
-			// std::cout << "end get probability" << std::endl;
-			int max_id = 0;
-			float max_prob = probs[0];
-			// std::cout << probs[0] << std::endl;
-			for (int k = 0; k < probs.size(); ++k)
-			{
-				// std::cout << probs[k] << " " << k << " " << probs.size() << std::endl;
-				if(probs[k] > max_prob){
-					max_id = k;
-					max_prob = probs[k];
-				}
-			}
-			// std::cerr << max_id << std::endl;
-			// std::cout << "end loop " << i << " " << j << std::endl;
-			ret.at<uchar>(j,i) = max_id + 1;
-		}
+	// 	for (int j = 0; j < ret.rows; ++j){
 
-		// std::cout << " temp " << std::endl;
-	}
-	cv::Mat retMatScaled;
-	ret.convertTo(retMatScaled, CV_8UC1, 255, 0);
-	imwrite("color_line_id.png",ret);
+	// 		// std::cout << "start loop " << i << " " << j << std::endl;
+	// 		Vec3d pixel1= img.at<Vec3b>(j,i);
+	// 		Point3d pixel= (Point3d)pixel1;
+	// 		// std::cout << "start get probability" << std::endl;
+	// 		std::vector<float> probs = get_probability(pixel);
+	// 		// std::vector<float> probs;
+	// 		// probs.resize(10);
+	// 		// std::cout << "end get probability" << std::endl;
+	// 		int max_id = 0;
+	// 		float max_prob = probs[0];
+	// 		// std::cout << probs[0] << std::endl;
+	// 		for (int k = 0; k < probs.size(); ++k)
+	// 		{
+	// 			// std::cout << probs[k] << " " << k << " " << probs.size() << std::endl;
+	// 			if(probs[k] > max_prob){
+	// 				max_id = k;
+	// 				max_prob = probs[k];
+	// 			}
+	// 		}
+	// 		// std::cerr << max_id << std::endl;
+	// 		// std::cout << "end loop " << i << " " << j << std::endl;
+	// 		ret.at<uchar>(j,i) = max_id + 1;
+	// 	}
+
+	// 	// std::cout << " temp " << std::endl;
+	// }
+	// cv::Mat retMatScaled;
+	// ret.convertTo(retMatScaled, CV_8UC1, 255, 0);
+	// imwrite("color_line_id.png",ret);
 
 }
 

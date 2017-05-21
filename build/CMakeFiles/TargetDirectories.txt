@@ -1,3 +1,0 @@
-/home/netra/pranjal/colorLines/build/CMakeFiles/edit_cache.dir
-/home/netra/pranjal/colorLines/build/CMakeFiles/rebuild_cache.dir
-/home/netra/pranjal/colorLines/build/CMakeFiles/main.dir
