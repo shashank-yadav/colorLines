@@ -32,4 +32,8 @@ public:
 	void cleanup(colorLine line);
 	
 	std::vector<float> get_probability(cv::Point3d input);
+
+	float get_distance(cv::Point3d input);
+
+	float get_probability2(Point3d pt1 , Point3d pt2);
 };

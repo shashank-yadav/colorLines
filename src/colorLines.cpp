@@ -164,7 +164,7 @@ int get_nearest_index(cv::Point3f pt, std::vector<cv::Point3f> &gaussians){
 
 void formLinesLeft(std::vector< std::vector<cv::Point3f> > &histogram_slices_gaussians , std::vector< std::vector<cv::Point2f> > &histogram_slices_maximas , std::vector<cv::Mat> &histogram_slices , const int search_size, std::vector<colorLine> &lines, int number_lines, int start_point, std::vector<int> affiliated_color_line, const int r){
 	//do something
-	assert(histogram_slices_maximas[start_point].size() == affiliated_color_line.size());
+	// assert(histogram_slices_maximas[start_point].size() == affiliated_color_line.size());
 	// std::cout << "left " << start_point << std::endl;
 	if(start_point == 0){
 		return;
@@ -173,7 +173,11 @@ void formLinesLeft(std::vector< std::vector<cv::Point3f> > &histogram_slices_gau
 	{
 		std::vector<int> acl_new;
 		for (int i = 0; i < histogram_slices_gaussians[start_point].size(); ++i){
-			int nearest_index = affiliated_color_line[get_nearest_index(histogram_slices_gaussians[start_point][i] , histogram_slices_gaussians[start_point+1])];
+			int temp_index = start_point + 1;
+			while(histogram_slices_gaussians[temp_index].size() == 0){
+				++temp_index;
+			}
+			int nearest_index = affiliated_color_line[get_nearest_index(histogram_slices_gaussians[start_point][i] , histogram_slices_gaussians[temp_index])];
 			acl_new.push_back(nearest_index);
 
 			point temp;
@@ -187,25 +191,36 @@ void formLinesLeft(std::vector< std::vector<cv::Point3f> > &histogram_slices_gau
 			temp.sigma = histogram_slices_gaussians[start_point][i].z;
 			lines[nearest_index].push_back(temp);
 		}
-		formLinesLeft(histogram_slices_gaussians, histogram_slices_maximas , histogram_slices , 5, lines, number_lines, start_point, acl_new, r);
+		if(histogram_slices_gaussians[start_point].size() == 0){
+			formLinesLeft(histogram_slices_gaussians, histogram_slices_maximas , histogram_slices , 5, lines, number_lines, start_point, affiliated_color_line, r);
+		}
+		else{
+			formLinesLeft(histogram_slices_gaussians, histogram_slices_maximas , histogram_slices , 5, lines, number_lines, start_point, acl_new, r);
+		}
 	}
 
 }
 
 void formLinesRight(std::vector< std::vector<cv::Point3f> > &histogram_slices_gaussians , std::vector< std::vector<cv::Point2f> > &histogram_slices_maximas , std::vector<cv::Mat> &histogram_slices , const int search_size, std::vector<colorLine> &lines, int number_lines, int start_point, std::vector<int> affiliated_color_line, const int r){
 	//do something
-	assert(histogram_slices_maximas[start_point].size() == affiliated_color_line.size());
+	// std::cout << "right " << start_point << std::endl;
+	// assert(histogram_slices_maximas[start_point].size() == affiliated_color_line.size());
 	const int num_bins = (450/r) + 1;
 	assert(num_bins == histogram_slices.size());
-	// std::cout << "right " << start_point << std::endl;
+	// std::cout << "right " << start_point << " " << num_bins - 1 << std::endl;
 	if(start_point == num_bins - 1){
 		return;
 	}
 	++start_point;
 	{
 		std::vector<int> acl_new;
+		// std::cout << histogram_slices_gaussians[start_point].size() << std::endl;
 		for (int i = 0; i < histogram_slices_gaussians[start_point].size(); ++i){
-			int nearest_index = affiliated_color_line[get_nearest_index(histogram_slices_gaussians[start_point][i] , histogram_slices_gaussians[start_point-1])];
+			int temp_index = start_point - 1;
+			while(histogram_slices_gaussians[temp_index].size() == 0){
+				--temp_index;
+			}
+			int nearest_index = affiliated_color_line[get_nearest_index(histogram_slices_gaussians[start_point][i] , histogram_slices_gaussians[temp_index])];
 			acl_new.push_back(nearest_index);
 
 
@@ -222,7 +237,12 @@ void formLinesRight(std::vector< std::vector<cv::Point3f> > &histogram_slices_ga
 		}
 		// int a;
 		// std::cin >> a;
-		formLinesRight(histogram_slices_gaussians, histogram_slices_maximas , histogram_slices , 5, lines, number_lines, start_point, acl_new, r);
+		if(histogram_slices_gaussians[start_point].size() == 0){
+			formLinesRight(histogram_slices_gaussians, histogram_slices_maximas , histogram_slices , 5, lines, number_lines, start_point, affiliated_color_line, r);
+		}
+		else{
+			formLinesRight(histogram_slices_gaussians, histogram_slices_maximas , histogram_slices , 5, lines, number_lines, start_point, acl_new, r);
+		}
 	}
 }
 
@@ -400,12 +420,83 @@ void colorLines::init(cv::Mat img,  const int r)
 		affiliated_color_line.push_back(l);
 	}
 
+	// std::cerr << lines.size() << std::endl;
 	formLinesLeft(histogram_slices_gaussians, histogram_slices_maximas , histogram_slices , 5, lines, max_lines, max_lines_index, affiliated_color_line, r);
+	// std::cerr << lines.size() << std::endl;
 	formLinesRight(histogram_slices_gaussians, histogram_slices_maximas , histogram_slices , 5, lines, max_lines, max_lines_index, affiliated_color_line, r);
+
+	// std::cerr << lines.size() << std::endl;
+	/*int max_size_index = 0;
+	int max_size = lines[0].size();
+	for (int i = 0; i < lines.size(); ++i){
+		// cleanup(lines[i]);
+		// std::cerr << lines[i].size() << std::endl;
+		// std::cout << lines[i].size() << std::endl;
+		if(max_size < lines[i].size()){
+			max_size = lines[i].size();
+			max_size_index = i;
+		}
+		// for (int j = 0; j < lines[i].size(); ++j)
+		// {
+		// 	std::cerr << lines[i][j].r << "\n" << lines[i][j].g << "\n" << lines[i][j].b << std::endl;
+		// }
+	}
+
+	std::vector<colorLine> temp;
+	temp.push_back(lines[max_size_index]);
+	lines = temp;*/
+
+	std::cerr << lines.size() << std::endl;
+	for (int i = 0; i < lines.size(); ++i){
+		cleanup(lines[i]);
+		std::cerr << lines[i].size() << std::endl;
+		// std::cout << lines[i].size() << std::endl;
+		for (int j = 0; j < lines[i].size(); ++j)
+		{
+			std::cerr << lines[i][j].r << "\n" << lines[i][j].g << "\n" << lines[i][j].b << std::endl;
+		}
+	}
+
+	// std::cout << lines.size() << " " << lines_cleanedup.size() << std::endl;
+
+	Mat ret = Mat::zeros(img.size(),CV_8UC1);
+	for (int i = 0; i < ret.cols; ++i){
+
+		for (int j = 0; j < ret.rows; ++j){
+
+			// std::cout << "start loop " << i << " " << j << std::endl;
+			Vec3d pixel1= img.at<Vec3b>(j,i);
+			Point3d pixel= (Point3d)pixel1;
+			// std::cout << "start get probability" << std::endl;
+			std::vector<float> probs = get_probability(pixel);
+			// std::vector<float> probs;
+			// probs.resize(10);
+			// std::cout << "end get probability" << std::endl;
+			int max_id = 0;
+			float max_prob = probs[0];
+			// std::cout << probs[0] << std::endl;
+			for (int k = 0; k < probs.size(); ++k)
+			{
+				// std::cout << probs[k] << " " << k << " " << probs.size() << std::endl;
+				if(probs[k] > max_prob){
+					max_id = k;
+					max_prob = probs[k];
+				}
+			}
+			// std::cerr << max_id << std::endl;
+			// std::cout << "end loop " << i << " " << j << std::endl;
+			ret.at<uchar>(j,i) = max_id + 1;
+		}
+
+		// std::cout << " temp " << std::endl;
+	}
+	cv::Mat retMatScaled;
+	ret.convertTo(retMatScaled, CV_8UC1, 255, 0);
+	imwrite("color_line_id.png",ret);
 	
 
 	// std::cerr << lines.size() << std::endl;
-	int max_size_index = 0;
+	/*int max_size_index = 0;
 	int max_size = lines[0].size();
 	for (int i = 0; i < lines.size(); ++i){
 		// cleanup(lines[i]);
@@ -434,8 +525,9 @@ void colorLines::init(cv::Mat img,  const int r)
 		{
 			std::cerr << lines[i][j].r << "\n" << lines[i][j].g << "\n" << lines[i][j].b << std::endl;
 		}
-	}
+	}*/
 
+	// std::cout << lines[0].size() << std::endl;
 	// std::cout << lines.size() << " " << lines_cleanedup.size() << std::endl;
 
 	// Mat ret = Mat::zeros(img.size(),CV_8UC1);
@@ -536,4 +628,71 @@ std::vector<float> colorLines::get_probability(cv::Point3d input){
 	}
 	return ret;
 }
+
+inline float distance_from_gaussian(float x, float y, float mu_x, float mu_y, float sigma){
+	float ret = ((x-mu_x)*(x-mu_x) + (y-mu_y)*(y-mu_y))/(2.0*sigma*sigma);
+	// cout<<"Prob : "<<ret<<endl;
+	return ret;
+}
+
+float colorLines::get_distance(cv::Point3d input){
+	int r = radius;
+	float magnitude = norm(input);
+	int bin_id = magnitude/r + 1;
+	const int num_bins = (450/r) + 1;
+	std::vector<float> ret;
+	ret.resize(lines_cleanedup.size());
+	Point3d eps =  Point3d(0.01,0.01,0.01);
+	for (int i = 0; i < lines_cleanedup.size(); ++i){
+		ret[i] = 0.0;
+		assert(num_bins == lines_cleanedup[i].size());
+		if(lines_cleanedup[i].size() > 0){
+			// for (int j = 0; j < num_bins; ++j)
+			// {
+			assert(bin_id < num_bins);
+			int j = bin_id;//just for fun
+			if(lines_cleanedup[i][j].size() > 0){
+				// float max_prob = 0.0;
+				for (int k = 0; k < lines_cleanedup[i][j].size(); ++k){
+					Point3d proj_pt = (double)bin_id*(input) + eps;
+		
+					double theta = atan(proj_pt.y/proj_pt.x);
+		
+					double temp = sqrt(proj_pt.x*proj_pt.x + proj_pt.y*proj_pt.y);
+					double phi = atan(  temp/proj_pt.z );
+		
+					float x = (theta*180/PI);
+					float y = (phi*180/PI);
+					float temp_prob = distance_from_gaussian(x, y, lines_cleanedup[i][j][k].mu_x, lines_cleanedup[i][j][k].mu_y, lines_cleanedup[i][j][k].sigma);
+					// if(temp_prob > ret[i]){
+					ret[i] = max(temp_prob,ret[i]);
+					// }
+				}
+			}
+			// }
+		}
+	}
+	float min_distance = ret[0];
+	for (int i = 0; i < ret.size(); ++i)
+	{
+		min_distance = min(min_distance,ret[i]);
+	}
+	return min_distance;
+}
+
+
+float colorLines::get_probability2(Point3d pt1 , Point3d pt2){
+
+	std::vector<float> probs1 = get_probability(pt1);
+	std::vector<float> probs2 = get_probability(pt2);
+
+	float prob = 0;
+
+	for (int i = 0; i < probs1.size(); ++i){
+		prob += probs1[i]*probs2[i];
+	}
+
+	return prob;
+}
+	
 

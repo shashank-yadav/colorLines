@@ -36,7 +36,7 @@ cv::Mat get_image_of_interest(cv::Mat &image, cv::Mat &image_segnet_temp){
 int main(int argc, char const *argv[])
 {
 
-	tinydir_dir dir;
+	/*tinydir_dir dir;
 	int i;
 	tinydir_open_sorted(&dir, argv[1]);
 
@@ -102,12 +102,12 @@ int main(int argc, char const *argv[])
 
     // cv::imwrite("test.png",image);
 
-    std::cout << "step one finished " << std::endl;
+    std::cout << "step one finished " << std::endl;*/
 
 
 
-	// Mat image;
-	// image = imread(argv[1], CV_LOAD_IMAGE_COLOR);
+	Mat image;
+	image = imread(argv[1], CV_LOAD_IMAGE_COLOR);
 
 	// Mat image_segnet_temp = imread(argv[2], CV_LOAD_IMAGE_COLOR);
 
